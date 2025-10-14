@@ -1,5 +1,11 @@
-# New Book
+# Classification d'image
+
+### Description du projet
+
+Ce que nous voulons faire: 
 
 ```julia (editor=true, logging=false, output=true)
+#Travail sur le flux 
+ImageClassifier
 
 ```
