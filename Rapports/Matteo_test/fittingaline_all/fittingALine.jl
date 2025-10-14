@@ -1,2 +1,2 @@
 using BonitoBook
-BonitoBook.book("fittingALine.md")
+BonitoBook.book("/Users/matteoschweizer/Documents/GitHub/imageclassification/Rapports/Matteo_test/fittingaline_all/fittingALine.md")
