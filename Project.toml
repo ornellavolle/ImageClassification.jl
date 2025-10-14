@@ -1,0 +1,7 @@
+name = "imageclassification"
+uuid = "94ff7110-d6ac-48b2-8417-2b0ab2331c97"
+authors = ["ornellavolle <ornellavolle@gmail.com>"]
+version = "0.0.1"
+
+[compat]
+julia = "1.10"
