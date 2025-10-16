@@ -1,2 +1,3 @@
 /Manifest*.toml
 \.vscode/
+#git rm --cached .vscode
