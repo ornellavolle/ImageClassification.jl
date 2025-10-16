@@ -1,7 +1,11 @@
 name = "imageclassification"
 uuid = "94ff7110-d6ac-48b2-8417-2b0ab2331c97"
-authors = ["ornellavolle <ornellavolle@gmail.com>"]
 version = "0.0.1"
+authors = ["ornellavolle <ornellavolle@gmail.com>"]
+
+[deps]
+Flux = "587475ba-b771-5e3f-ad9e-33799f191a9c"
 
 [compat]
+Flux = "0.16.5"
 julia = "1.10"
