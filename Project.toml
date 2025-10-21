@@ -1,4 +1,4 @@
-name = "imageclassification"
+name = "ImageClassification"
 uuid = "94ff7110-d6ac-48b2-8417-2b0ab2331c97"
 version = "0.0.1"
 authors = ["ornellavolle <ornellavolle@gmail.com>"]
