@@ -9,8 +9,6 @@ using ImageClassification
 using FileIO, Images  # pour charger tes images
 using Plots
 
-export load_image, load_dataset
-
 gr(size=(600, 300*(sqrt(5)-1))); #fixe la taille des figures (ici 600px de large)
 
 
