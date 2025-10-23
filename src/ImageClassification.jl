@@ -4,18 +4,26 @@ module ImageClassification
 using Images, ImageIO, FileIO
 using ImageTransformations
 
-# Lire des images : 
+# exports : 
 export load_image, load_dataset
-
-include("load.jl")
-
-# Animals personnaliser l'affichage de différents struct : 
-
 export Cheetah, Hyena, Jaguar, Tiger
-include("animals.jl")
+export interact
+export ⊔
 
+# Lire et redimensionner des images : 
 
-# Classification : utiliser CNN
-# Créer un type Struct selon la nature de l'image : cheetah...
+include("load_image/load.jl")
+
+# Animals personnalise l'affichage de différents struct : 
+
+include("multiple_dispaching/animals.jl")
+
+# Interactions entre animaux : multiple dispaching : 
+
+include("multiple_dispaching/interactions.jl")
+
+# Opérations avec : ⊔
+
+include("multiple_dispaching/operareur.jl")
 
 end
