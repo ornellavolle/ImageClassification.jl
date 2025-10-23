@@ -37,13 +37,11 @@ using Pkg
 #Pkg.add("FileIO")
 #Pkg.add("Statistics")
 #Pkg.add("Random")
-#Pkg.add("CUDA")
 using Flux
 using Images, ImageIO
 using FileIO
 using Statistics
 using Random
-using CUDA
 
 # chemin vers data
 train_dir = "data/train"

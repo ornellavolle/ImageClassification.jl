@@ -11,14 +11,11 @@ include("animals.jl")
 
 # Définition générique de l'opérateur : AbstractAnimals, AbstractAnimals
 
-⊔(a::AbstractAnimals, b::AbstractAnimals) = length(a.name) + length(b.name)
+a::AbstractAnimals ⊔ b::AbstractAnimals = string(a.name, " et ", b.name, " n'ont pas d'opérateurs pour l'instant :(")
 
 # Cas spécialisé pour (Cheetah, Hyena):
-⊔(a::Cheetah, b::Hyena) = a.weight / b.clan
-
-# Cas spécialisé pour (Hyena, Cheetah):
-⊔(a::Hyena, b::Cheetah) = a.clan * b.speed
+a::Cheetah ⊔ b::Hyena = string("Le guépart ", a.name, " et le hyène ", b.name," ne s'aiment pas du tout")
 
 # différence de force entre 2 tigres :
 # Cas spécialisé pour (Tiger, Tiger):
-⊔(a::Tiger, b::Tiger) = a.strength - b.strength
+a::Tiger ⊔ b::Tiger = string("Le tigre ",a.name," a une force de ",a.strength,"N, tandis que ",b.name," lui, en a une de ",b.strength,"N !")

@@ -26,4 +26,8 @@ include("multiple_dispaching/interactions.jl")
 
 include("multiple_dispaching/operareur.jl")
 
+# Créer un échantillon aléatoire : 
+
+# include("random_sample/random_sample_of_animals.jl")
+
 end
