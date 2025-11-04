@@ -9,6 +9,9 @@ export load_image, load_dataset
 export Cheetah, Hyena, Jaguar, Tiger
 export interact
 export ⊔
+export AnimalSampler, get_animal_dir
+export rand_one_animal, rand_each_animal, rand_all
+
 
 # Lire et redimensionner des images : 
 
@@ -26,8 +29,8 @@ include("multiple_dispaching/interactions.jl")
 
 include("multiple_dispaching/operareur.jl")
 
-# Créer un échantillon aléatoire : 
+# Créer des échantillons aléatoires d'animaux : 
 
-# include("random_sample/random_sample_of_animals.jl")
+include("random_sample/random_sample.jl")
 
 end
