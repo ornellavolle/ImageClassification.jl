@@ -102,4 +102,41 @@ function MLJFlux.build(b::MyConvBuilder, rng, image_size, n_out, n_channels)
 end
 
 
+# Charger le modèle MLJFlux.ImageClassifier
+ImageClassifier = @load ImageClassifier pkg=MLJFlux
 
+# Définir ton constructeur CNN (déjà défini avant)
+# struct MyConvBuilder ... (comme dans ton code précédent)
+
+using Random
+# Paramètres de ton modèle
+clf = ImageClassifier(
+    builder = MyConvBuilder(3, 16, 32, 64),  # filtres (3x3) et nombre de canaux
+    batch_size = 32,                         # taille des lots d'entraînement
+    epochs = 10,                             # nombre d’époques
+    rng = Random.default_rng(),              # graine aléatoire
+)
+
+#Liaison (binding) du modèle
+mach = machine(clf, train_images, train_labels);
+
+using Flux
+using MLUtils
+#entrainement pour 10 épochs
+fit!(mach, verbosity=2);
+
+
+
+#Pour essayer de faire tourner le modèle sur un sous ensemble et 
+#voir la conv: importer des données photos julia
+
+using Random
+
+subset_size = 500
+idx = randperm(length(train_images))[1:subset_size]
+
+images_subset = train_images[idx]
+labels_subset = train_labels[idx]
+
+mach = machine(clf, images_subset, labels_subset)
+fit!(mach, verbosity=2)
