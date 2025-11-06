@@ -1,7 +1,5 @@
 ##### Multiple dispaching : #####
 
-include("animals.jl")
-
 function interact(a::AbstractAnimals, b::AbstractAnimals)
     println(a.name, " observe prudemment ", b.name, ".")
 end
