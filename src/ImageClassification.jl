@@ -14,7 +14,9 @@ export rand_one_animal, rand_each_animal, rand_all
 export Animal, Carnivore, Herbivore, Cerf, Loup
 export describe, random_value, make_random_animal, interact
 export process_cheetah, process_hyena, process_jaguar, process_tiger
-#Créer des types:
+
+# Créer des types :
+
 include("type_creation/type_creation.jl")
 
 # Lire et redimensionner des images : 
