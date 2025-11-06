@@ -15,12 +15,11 @@ export rand_one_animal, rand_each_animal, rand_all
 export Animal, Carnivore, Herbivore, Cerf, Loup
 export describe, random_value, make_random_animal, interact
 export process_cheetah, process_hyena, process_jaguar, process_tiger
-
-# Créer des types :
 export MyConvBuilder, MLJFlux
 export load_images_from_folder
 
-#Fonction pour charger les images et leur attribuer une étiquette
+#Fonction pour charger les images et leur attribuer une étiquette :
+
 include("load_image/load_images_from_folder.jl")
 
 #création d'une fonction qui détermine la forme du réseau de neurone, fonction quib provient du package MLJFlux
