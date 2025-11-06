@@ -3,6 +3,7 @@ module ImageClassification
 # Packages à importer : 
 using Images, ImageIO, FileIO
 using ImageTransformations
+using MLJFlux
 
 # exports : 
 export load_image, load_dataset
@@ -12,6 +13,14 @@ export ⊔
 export AnimalSampler, get_animal_dir
 export rand_one_animal, rand_each_animal, rand_all
 export Animal, Carnivore, Herbivore, Cerf, Loup
+export MyConvBuilder, MLJFlux
+export load_images_from_folder
+
+#Fonction pour charger les images et leur attribuer une étiquette
+include("load_image/load_images_from_folder.jl")
+
+#création d'une fonction qui détermine la forme du réseau de neurone, fonction quib provient du package MLJFlux
+include("recipe_4_neural_network/recipe_4_neural_network.jl")
 
 #Créer des types:
 include("type_creation/type_creation.jl")

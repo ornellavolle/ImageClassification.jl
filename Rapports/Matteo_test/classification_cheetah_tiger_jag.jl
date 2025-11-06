@@ -127,7 +127,7 @@ using MLUtils
 
 
 
-#création d'un subset aléatoire du jeu de donnée cheetah...
+#création d'un subset aléatoire de 500 images du jeu de donnée cheetah...
 using Random
 
 subset_size = 500
@@ -138,4 +138,6 @@ labels_subset = train_labels[idx]
 
 #Liaison (binding) du modèle
 mach = machine(clf, images_subset, labels_subset)
+
+#entrainement pour 10 épochs
 fit!(mach, verbosity=2)
