@@ -122,3 +122,15 @@ mach = machine(clf, images_subset, labels_subset)
 
 #entrainement pour 10 épochs
 fit!(mach, verbosity=2)
+
+report(mach)
+
+# Prédictions
+ŷ = predict(mach, val_images)
+y_pred = mode.(ŷ)
+
+# Évaluation
+println("Accuracy = ", accuracy(y_pred, test_labels))
+cm = confusion_matrix(test_labels, y_pred)
+cm
+
