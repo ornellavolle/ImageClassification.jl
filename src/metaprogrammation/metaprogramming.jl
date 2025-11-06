@@ -1,4 +1,3 @@
-
 using Random
 
 #dictionary to introduce the animals
@@ -26,7 +25,6 @@ end
 
 # create the structures dynamically instead of one by one 
 abstract type AbstractAnimals end
-
 
 for (animal, fields) in ANIMAL_PROPERTIES
     struct_sym = Symbol(animal)
@@ -138,12 +136,6 @@ for animal in keys(ANIMAL_PROPERTIES)
     end
 end
 
-
-
-process_cheetah()
-process_hyena()
-process_jaguar()
-process_tiger()
 
 
 

@@ -11,7 +11,8 @@ export interact
 export ⊔
 export AnimalSampler, get_animal_dir
 export rand_one_animal, rand_each_animal, rand_all
-
+export describe, random_value, make_random_animal, interact
+export process_cheetah, process_hyena, process_jaguar, process_tiger
 
 # Lire et redimensionner des images : 
 
@@ -32,5 +33,9 @@ include("multiple_dispaching/operareur.jl")
 # Créer des échantillons aléatoires d'animaux : 
 
 include("random_sample/random_sample.jl")
+
+# Métaprogrammation : 
+
+include("metaprogrammation/metaprogramming.jl")
 
 end
