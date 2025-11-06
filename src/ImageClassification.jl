@@ -13,6 +13,10 @@ export ⊔
 export AnimalSampler, get_animal_dir
 export rand_one_animal, rand_each_animal, rand_all
 export Animal, Carnivore, Herbivore, Cerf, Loup
+export describe, random_value, make_random_animal, interact
+export process_cheetah, process_hyena, process_jaguar, process_tiger
+
+# Créer des types :
 export MyConvBuilder, MLJFlux
 export load_images_from_folder
 
@@ -22,7 +26,6 @@ include("load_image/load_images_from_folder.jl")
 #création d'une fonction qui détermine la forme du réseau de neurone, fonction quib provient du package MLJFlux
 include("recipe_4_neural_network/recipe_4_neural_network.jl")
 
-#Créer des types:
 include("type_creation/type_creation.jl")
 
 # Lire et redimensionner des images : 
@@ -44,5 +47,9 @@ include("multiple_dispaching/operareur.jl")
 # Créer des échantillons aléatoires d'animaux : 
 
 include("random_sample/random_sample.jl")
+
+# Métaprogrammation : 
+
+include("metaprogrammation/metaprogramming.jl")
 
 end
