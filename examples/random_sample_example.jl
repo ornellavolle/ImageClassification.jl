@@ -12,7 +12,7 @@ sampler = AnimalSampler(root, animals)
 # avoir le chemin du dossier d'un animal : 
 get_animal_dir(sampler, "cheetah")
 
-# Tirer 5 images d'un cheetah :  
+# Tirer 5 images d'un cheetah :
 
 rand_one_animal(sampler,"cheetah",5)
 
