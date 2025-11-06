@@ -34,7 +34,7 @@ function load_images_from_folder(folder_path)
             img_path = joinpath(class_path, img_file)
             img = FileIO.load(img_path)
             push!(images, img)
-            push!(labels, class)  # tu peux aussi stocker i pour un label numérique
+            push!(labels, class)  
         end
     end
 
@@ -123,13 +123,11 @@ mach = machine(clf, train_images, train_labels);
 using Flux
 using MLUtils
 #entrainement pour 10 épochs
-fit!(mach, verbosity=2);
+#fit!(mach, verbosity=2);
 
 
 
-#Pour essayer de faire tourner le modèle sur un sous ensemble et 
-#voir la conv: importer des données photos julia
-
+#création d'un subset aléatoire du jeu de donnée cheetah...
 using Random
 
 subset_size = 500
@@ -138,5 +136,6 @@ idx = randperm(length(train_images))[1:subset_size]
 images_subset = train_images[idx]
 labels_subset = train_labels[idx]
 
+#Liaison (binding) du modèle
 mach = machine(clf, images_subset, labels_subset)
 fit!(mach, verbosity=2)

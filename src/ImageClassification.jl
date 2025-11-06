@@ -11,7 +11,10 @@ export interact
 export ⊔
 export AnimalSampler, get_animal_dir
 export rand_one_animal, rand_each_animal, rand_all
+export Animal, Carnivore, Herbivore, Cerf, Loup
 
+#Créer des types:
+include("type_creation/type_creation.jl")
 
 # Lire et redimensionner des images : 
 
