@@ -1,7 +1,5 @@
 ##### Opérateurs et double dispaching : #####
 
-include("animals.jl")
-
 # liste des opérateurs Julia reconnus : 
 # https://github.com/JuliaLang/julia/blob/master/src/julia-parser.scm
 
