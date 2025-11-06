@@ -18,12 +18,15 @@ export process_cheetah, process_hyena, process_jaguar, process_tiger
 export MyConvBuilder, MLJFlux
 export load_images_from_folder
 
-#Fonction pour charger les images et leur attribuer une étiquette :
+# Fonction pour charger les images et leur attribuer une étiquette :
 
 include("load_image/load_images_from_folder.jl")
 
-#création d'une fonction qui détermine la forme du réseau de neurone, fonction quib provient du package MLJFlux
+# Création d'une fonction qui détermine la forme du réseau de neurone, fonction qui provient du package MLJFlux : 
+
 include("recipe_4_neural_network/recipe_4_neural_network.jl")
+
+# Créer des nouveaux types : 
 
 include("type_creation/type_creation.jl")
 
