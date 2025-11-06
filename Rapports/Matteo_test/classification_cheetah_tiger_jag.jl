@@ -62,7 +62,7 @@ val_labels = coerce(val_labels, Multiclass)
 
 
 #Visualiser une image
-train_images[2501]
+train_images[2520]
 
 import MLJFlux
 #using Flux
