@@ -2,11 +2,11 @@ using Test
 using ImageClassification
 
 @testset "ImageClassification.jl" begin
-        include("unit/test_load.jl")
-        include("unit/test_interactions.jl")
-        include("unit/test_operateurs.jl")
-        include("unit/test_random_sample.jl")
-        include("unit/test_animals.jl")
+        include("unit/load.jl")
+        include("unit/interactions.jl")
+        include("unit/operateurs.jl")
+        include("unit/random_sample.jl")
+        include("unit/animals.jl")
 end
 
 # lancer les tests : test
