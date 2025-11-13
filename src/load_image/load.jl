@@ -2,13 +2,14 @@
 # constante du répertoire :
 const root_dir = joinpath(dirname(@__FILE__),"..","..")
 
-# Fonction pour charger une image en tenseur 4D, et la redimensionner en 64*64 :
+# Fonction pour charger une image et la redimensionner en 64*64 :
 function load_image(path; dataset::AbstractString = "train", size=(200,200))
     img = load(joinpath(root_dir,joinpath("data",dataset),path))
     img = imresize(img,size) # Redimensionner
     return img
 end
 
+load_image(joinpath("cheetah","cheetah_000_resized.jpg"))
 
 # fonction pour charger l'ensemble des données d'un répertoire donné : base_dir
 # l'ensemble des images, redimensionnées en (64*64) sont stockées dans le vecteur X
@@ -28,8 +29,7 @@ function load_dataset(;dataset::AbstractString = "train")
             push!(labels, cls)
         end
     end
-    print(labels)
-    return imgs, labels
+    return imgs
 end
 
 load_dataset()
