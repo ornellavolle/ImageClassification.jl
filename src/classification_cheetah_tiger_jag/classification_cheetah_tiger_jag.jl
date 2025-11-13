@@ -7,17 +7,19 @@
 #import MLJFlux
 #import MLUtils
 #import MLJIteration  # pour 'skip'
-#using ImageClassification
 
+
+
+using ImageClassification
 import FileIO
 import Images
 using FileIO
 using Images  # pour charger tes images
 using Plots
 
+
+
 gr(size=(600, 300*(sqrt(5)-1))); #fixe la taille des figures (ici 600px de large)
-
-
 
 # Chemin vers ton dossier 'data'
 base_path = "/Users/matteoschweizer/Documents/GitHub/ImageClassification.jl/data"
@@ -121,7 +123,7 @@ labels_subset = train_labels[idx]
 mach = machine(clf, images_subset, labels_subset)
 
 #entrainement pour 10 épochs
-fit!(mach, verbosity=2)
+#fit!(mach, verbosity=2)
 
 report(mach)
 
@@ -130,7 +132,16 @@ report(mach)
 y_pred = mode.(ŷ)
 
 # Évaluation
-println("Accuracy = ", accuracy(y_pred, test_labels))
-cm = confusion_matrix(test_labels, y_pred)
+println("Accuracy = ", accuracy(y_pred, val_labels))
+cm = confusion_matrix(val_labels, y_pred)
 cm
 
+# Sauvegarde du modèle
+MLJ.save("model.bson", mach)
+println("Modèle sauvegardé dans model.bson ✅")
+
+mach_restored, _ = MLJ.load("model.bson")
+
+# Tu peux l’utiliser directement :
+ŷ = predict(mach_restored, val_images)
+y_pred = mode.(ŷ)
