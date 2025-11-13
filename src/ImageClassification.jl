@@ -16,11 +16,6 @@ export Animal, Carnivore, Herbivore, Cerf, Loup
 export describe, random_value, make_random_animal, interact
 export process_cheetah, process_hyena, process_jaguar, process_tiger
 export MyConvBuilder, MLJFlux
-export load_images_from_folder
-
-# Fonction pour charger les images et leur attribuer une étiquette :
-
-include("load_image/load_images_from_folder.jl")
 
 # Création d'une fonction qui détermine la forme du réseau de neurone, fonction qui provient du package MLJFlux : 
 
