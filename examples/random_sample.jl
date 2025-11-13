@@ -14,10 +14,11 @@ get_animal_dir(sampler, "cheetah")
 
 # Tirer 5 images d'un cheetah :
 
-rand_one_animal(sampler,"cheetah",5)
+rand(sampler,"cheetah",5)
 
 # Tirer 8 images pour chaque animal :
-sampled_by_animal = rand_each_animal(sampler, 8)
+
+sampled_by_animal = rand(sampler, 8)
 
 # Tirer 20 images au total, réparties entre tous les animaux :
 sampled_global = rand_all(sampler, 20)
