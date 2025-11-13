@@ -1,0 +1,169 @@
+<!doctype html>
+<html class="bonito-fragment">
+  <head>
+    <script src="./bonito/js/Bonito.bundled13389133706764782584.js" type="module"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8" />
+    <title>Bonito App</title>
+    <style></style>
+  </head>
+  <body>
+    <script type="module">Bonito.init_session("512fc683-81e0-4fb1-8057-5a254745491e", null, "root", false);
+</script>
+    <div id="512fc683-81e0-4fb1-8057-5a254745491e" data-jscall-id="root">
+      <pre class="backtrace" style="overflow-x: auto;" data-jscall-id="1">
+        <h3 style="color: red;" data-jscall-id="2">MethodError: no method matching _block&#40;::Type&#123;Button&#125;, ::String&#41;
+The function &#96;_block&#96; exists, but no method is defined for this combination of argument types.
+
+Closest candidates are:
+  _block&#40;::Type&#123;&#60;:Makie.Block&#125;, &#33;Matched::Union&#123;GridPosition, GridSubposition&#125;, Any...; kwargs...&#41;
+   &#64; Makie ~/.julia/packages/Makie/4JW9B/src/makielayout/blocks.jl:251
+  _block&#40;::Type&#123;&#60;:Makie.Block&#125;, &#33;Matched::Union&#123;Figure, Scene&#125;, &#33;Matched::Any, &#33;Matched::Dict, &#33;Matched::Any; kwdict_complete&#41;
+   &#64; Makie ~/.julia/packages/Makie/4JW9B/src/makielayout/blocks.jl:321
+  _block&#40;::Type&#123;&#60;:Makie.Block&#125;, &#33;Matched::Union&#123;Figure, Scene&#125;, Any...; bbox, kwargs...&#41;
+   &#64; Makie ~/.julia/packages/Makie/4JW9B/src/makielayout/blocks.jl:265
+</h3>
+        <span data-jscall-id="3">Stacktrace:</span>
+        <br data-jscall-id="4" />
+        <span style="color: darkred; font-weight: bold;" data-jscall-id="5">  &#91;1&#93; Button&#40;args::String; kwargs::&#64;Kwargs&#123;&#125;&#41;</span>
+        <br data-jscall-id="6" />
+        <span data-jscall-id="7">    &#64; Makie ~/.julia/packages/Makie/4JW9B/src/makielayout/blocks.jl:242</span>
+        <br data-jscall-id="8" />
+        <span style="color: darkred; font-weight: bold;" data-jscall-id="9">  &#91;2&#93; Button&#40;args::String&#41;</span>
+        <br data-jscall-id="10" />
+        <span data-jscall-id="11">    &#64; Makie ~/.julia/packages/Makie/4JW9B/src/makielayout/blocks.jl:241</span>
+        <br data-jscall-id="12" />
+        <span style="color: darkred; font-weight: bold;" data-jscall-id="13">  &#91;3&#93; &#40;::var&#34;#198#199&#34;&#41;&#40;session::Session&#123;NoConnection&#125;&#41;</span>
+        <br data-jscall-id="14" />
+        <span data-jscall-id="15">    &#64; Main ~/Desktop/MIASHS/MasterM1SSD/CoursRJulia/GitHub_package/ImageClassification.jl/Rapports/Ornella/exemple.jl:5</span>
+        <br data-jscall-id="16" />
+        <span style="color: darkred; font-weight: bold;" data-jscall-id="17">  &#91;4&#93; &#40;::Bonito.var&#34;#19#20&#34;&#123;var&#34;#198#199&#34;&#125;&#41;&#40;session::Session&#123;NoConnection&#125;, request::HTTP.Messages.Request&#41;</span>
+        <br data-jscall-id="18" />
+        <span data-jscall-id="19">    &#64; Bonito ~/.julia/packages/Bonito/tWcqJ/src/types.jl:356</span>
+        <br data-jscall-id="20" />
+        <span style="color: darkred; font-weight: bold;" data-jscall-id="21">  &#91;5&#93; rendered_dom&#40;session::Session&#123;NoConnection&#125;, app::App, target::HTTP.Messages.Request&#41;</span>
+        <br data-jscall-id="22" />
+        <span data-jscall-id="23">    &#64; Bonito ~/.julia/packages/Bonito/tWcqJ/src/app.jl:42</span>
+        <br data-jscall-id="24" />
+        <span style="color: darkred; font-weight: bold;" data-jscall-id="25">  &#91;6&#93; rendered_dom</span>
+        <br data-jscall-id="26" />
+        <span data-jscall-id="27">    &#64; ~/.julia/packages/Bonito/tWcqJ/src/app.jl:39 &#91;inlined&#93;</span>
+        <br data-jscall-id="28" />
+        <span style="color: darkred; font-weight: bold;" data-jscall-id="29">  &#91;7&#93; session_dom&#40;session::Session&#123;NoConnection&#125;, app::App; init::Bool, html_document::Bool&#41;</span>
+        <br data-jscall-id="30" />
+        <span data-jscall-id="31">    &#64; Bonito ~/.julia/packages/Bonito/tWcqJ/src/session.jl:362</span>
+        <br data-jscall-id="32" />
+        <span style="color: darkred; font-weight: bold;" data-jscall-id="33">  &#91;8&#93; page_html&#40;io::IOStream, session::Session&#123;NoConnection&#125;, app_node::App&#41;</span>
+        <br data-jscall-id="34" />
+        <span data-jscall-id="35">    &#64; Bonito ~/.julia/packages/Bonito/tWcqJ/src/display.jl:113</span>
+        <br data-jscall-id="36" />
+        <span style="color: darkred; font-weight: bold;" data-jscall-id="37">  &#91;9&#93; export_static&#40;html_io::IOStream, app::App; asset_server::Nothing, connection::Nothing, session::Session&#123;NoConnection&#125;&#41;</span>
+        <br data-jscall-id="38" />
+        <span data-jscall-id="39">    &#64; Bonito ~/.julia/packages/Bonito/tWcqJ/src/export.jl:317</span>
+        <br data-jscall-id="40" />
+        <span style="color: darkred; font-weight: bold;" data-jscall-id="41"> &#91;10&#93; export_static</span>
+        <br data-jscall-id="42" />
+        <span data-jscall-id="43">    &#64; ~/.julia/packages/Bonito/tWcqJ/src/export.jl:309 &#91;inlined&#93;</span>
+        <br data-jscall-id="44" />
+        <span style="color: darkred; font-weight: bold;" data-jscall-id="45"> &#91;11&#93; #230</span>
+        <br data-jscall-id="46" />
+        <span data-jscall-id="47">    &#64; ~/.julia/packages/Bonito/tWcqJ/src/export.jl:298 &#91;inlined&#93;</span>
+        <br data-jscall-id="48" />
+        <span style="color: darkred; font-weight: bold;" data-jscall-id="49"> &#91;12&#93; open&#40;::Bonito.var&#34;#230#231&#34;&#123;App, Session&#123;NoConnection&#125;&#125;, ::String, ::Vararg&#123;String&#125;; kwargs::&#64;Kwargs&#123;&#125;&#41;</span>
+        <br data-jscall-id="50" />
+        <span data-jscall-id="51">    &#64; Base 
+          <a href="vscode://file/./io.jl:410" data-jscall-id="52">./io.jl:410</a>
+        </span>
+        <br data-jscall-id="53" />
+        <span style="color: darkred; font-weight: bold;" data-jscall-id="54"> &#91;13&#93; open</span>
+        <br data-jscall-id="55" />
+        <span data-jscall-id="56">    &#64; 
+          <a href="vscode://file/./io.jl:407" data-jscall-id="57">./io.jl:407</a> &#91;inlined&#93;
+        </span>
+        <br data-jscall-id="58" />
+        <span style="color: darkred; font-weight: bold;" data-jscall-id="59"> &#91;14&#93; export_static&#40;html_file::String, app::App; asset_server::Nothing, connection::Nothing, session::Session&#123;NoConnection&#125;&#41;</span>
+        <br data-jscall-id="60" />
+        <span data-jscall-id="61">    &#64; Bonito ~/.julia/packages/Bonito/tWcqJ/src/export.jl:297</span>
+        <br data-jscall-id="62" />
+        <span style="color: darkred; font-weight: bold;" data-jscall-id="63"> &#91;15&#93; export_static</span>
+        <br data-jscall-id="64" />
+        <span data-jscall-id="65">    &#64; ~/.julia/packages/Bonito/tWcqJ/src/export.jl:289 &#91;inlined&#93;</span>
+        <br data-jscall-id="66" />
+        <span style="color: darkred; font-weight: bold;" data-jscall-id="67"> &#91;16&#93; export_static&#40;folder::String, routes::Routes; connection::Nothing, asset_server::Nothing&#41;</span>
+        <br data-jscall-id="68" />
+        <span data-jscall-id="69">    &#64; Bonito ~/.julia/packages/Bonito/tWcqJ/src/export.jl:349</span>
+        <br data-jscall-id="70" />
+        <span style="color: darkred; font-weight: bold;" data-jscall-id="71"> &#91;17&#93; export_static&#40;folder::String, routes::Routes&#41;</span>
+        <br data-jscall-id="72" />
+        <span data-jscall-id="73">    &#64; Bonito ~/.julia/packages/Bonito/tWcqJ/src/export.jl:328</span>
+        <br data-jscall-id="74" />
+        <span style="color: darkred; font-weight: bold;" data-jscall-id="75"> &#91;18&#93; top-level scope</span>
+        <br data-jscall-id="76" />
+        <span data-jscall-id="77">    &#64; ~/Desktop/MIASHS/MasterM1SSD/CoursRJulia/GitHub_package/ImageClassification.jl/Rapports/Ornella/exemple.jl:11</span>
+        <br data-jscall-id="78" />
+        <span style="color: darkred; font-weight: bold;" data-jscall-id="79"> &#91;19&#93; eval&#40;m::Module, e::Any&#41;</span>
+        <br data-jscall-id="80" />
+        <span data-jscall-id="81">    &#64; Core 
+          <a href="vscode://file/./boot.jl:489" data-jscall-id="82">./boot.jl:489</a>
+        </span>
+        <br data-jscall-id="83" />
+        <span style="color: darkred; font-weight: bold;" data-jscall-id="84"> &#91;20&#93; include_string&#40;mapexpr::typeof&#40;identity&#41;, mod::Module, code::String, filename::String&#41;</span>
+        <br data-jscall-id="85" />
+        <span data-jscall-id="86">    &#64; Base 
+          <a href="vscode://file/./loading.jl:2842" data-jscall-id="87">./loading.jl:2842</a>
+        </span>
+        <br data-jscall-id="88" />
+        <span style="color: darkred; font-weight: bold;" data-jscall-id="89"> &#91;21&#93; include_string&#40;m::Module, txt::String, fname::String&#41;</span>
+        <br data-jscall-id="90" />
+        <span data-jscall-id="91">    &#64; Base 
+          <a href="vscode://file/./loading.jl:2852" data-jscall-id="92">./loading.jl:2852</a>
+        </span>
+        <br data-jscall-id="93" />
+        <span style="color: darkred; font-weight: bold;" data-jscall-id="94"> &#91;22&#93; inlineeval&#40;m::Module, code::String, code_line::Int64, code_column::Int64, file::String; softscope::Bool&#41;</span>
+        <br data-jscall-id="95" />
+        <span data-jscall-id="96">    &#64; VSCodeServer ~/.vscode/extensions/julialang.language-julia-1.149.2/scripts/packages/VSCodeServer/src/eval.jl:271</span>
+        <br data-jscall-id="97" />
+        <span style="color: darkred; font-weight: bold;" data-jscall-id="98"> &#91;23&#93; &#40;::VSCodeServer.var&#34;#repl_runcode_request##6#repl_runcode_request##7&#34;&#123;…&#125;&#41;&#40;&#41;</span>
+        <br data-jscall-id="99" />
+        <span data-jscall-id="100">    &#64; VSCodeServer ~/.vscode/extensions/julialang.language-julia-1.149.2/scripts/packages/VSCodeServer/src/eval.jl:181</span>
+        <br data-jscall-id="101" />
+        <span style="color: darkred; font-weight: bold;" data-jscall-id="102"> &#91;24&#93; withpath&#40;f::VSCodeServer.var&#34;#repl_runcode_request##6#repl_runcode_request##7&#34;&#123;…&#125;, path::String&#41;</span>
+        <br data-jscall-id="103" />
+        <span data-jscall-id="104">    &#64; VSCodeServer ~/.vscode/extensions/julialang.language-julia-1.149.2/scripts/packages/VSCodeServer/src/repl.jl:276</span>
+        <br data-jscall-id="105" />
+        <span style="color: darkred; font-weight: bold;" data-jscall-id="106"> &#91;25&#93; &#40;::VSCodeServer.var&#34;#repl_runcode_request##4#repl_runcode_request##5&#34;&#123;…&#125;&#41;&#40;&#41;</span>
+        <br data-jscall-id="107" />
+        <span data-jscall-id="108">    &#64; VSCodeServer ~/.vscode/extensions/julialang.language-julia-1.149.2/scripts/packages/VSCodeServer/src/eval.jl:179</span>
+        <br data-jscall-id="109" />
+        <span style="color: darkred; font-weight: bold;" data-jscall-id="110"> &#91;26&#93; hideprompt&#40;f::VSCodeServer.var&#34;#repl_runcode_request##4#repl_runcode_request##5&#34;&#123;…&#125;&#41;</span>
+        <br data-jscall-id="111" />
+        <span data-jscall-id="112">    &#64; VSCodeServer ~/.vscode/extensions/julialang.language-julia-1.149.2/scripts/packages/VSCodeServer/src/repl.jl:38</span>
+        <br data-jscall-id="113" />
+        <span style="color: darkred; font-weight: bold;" data-jscall-id="114"> &#91;27&#93; #repl_runcode_request##2</span>
+        <br data-jscall-id="115" />
+        <span data-jscall-id="116">    &#64; ~/.vscode/extensions/julialang.language-julia-1.149.2/scripts/packages/VSCodeServer/src/eval.jl:150 &#91;inlined&#93;</span>
+        <br data-jscall-id="117" />
+        <span style="color: darkred; font-weight: bold;" data-jscall-id="118"> &#91;28&#93; with_logstate&#40;f::VSCodeServer.var&#34;#repl_runcode_request##2#repl_runcode_request##3&#34;&#123;…&#125;, logstate::Base.CoreLogging.LogState&#41;</span>
+        <br data-jscall-id="119" />
+        <span data-jscall-id="120">    &#64; Base.CoreLogging 
+          <a href="vscode://file/./logging/logging.jl:540" data-jscall-id="121">./logging/logging.jl:540</a>
+        </span>
+        <br data-jscall-id="122" />
+        <span style="color: darkred; font-weight: bold;" data-jscall-id="123"> &#91;29&#93; with_logger</span>
+        <br data-jscall-id="124" />
+        <span data-jscall-id="125">    &#64; 
+          <a href="vscode://file/./logging/logging.jl:651" data-jscall-id="126">./logging/logging.jl:651</a> &#91;inlined&#93;
+        </span>
+        <br data-jscall-id="127" />
+        <span style="color: darkred; font-weight: bold;" data-jscall-id="128"> &#91;30&#93; &#40;::VSCodeServer.var&#34;#repl_runcode_request##0#repl_runcode_request##1&#34;&#123;VSCodeServer.ReplRunCodeRequestParams&#125;&#41;&#40;&#41;</span>
+        <br data-jscall-id="129" />
+        <span data-jscall-id="130">    &#64; VSCodeServer ~/.vscode/extensions/julialang.language-julia-1.149.2/scripts/packages/VSCodeServer/src/eval.jl:263</span>
+        <br data-jscall-id="131" />
+        <span style="color: darkred; font-weight: bold;" data-jscall-id="132"> &#91;31&#93; &#40;::VSCodeServer.var&#34;#start_eval_backend##0#start_eval_backend##1&#34;&#41;&#40;&#41;</span>
+        <br data-jscall-id="133" />
+        <span data-jscall-id="134">    &#64; VSCodeServer ~/.vscode/extensions/julialang.language-julia-1.149.2/scripts/packages/VSCodeServer/src/eval.jl:34</span>
+        <br data-jscall-id="135" />
+      </pre>
+    </div>
+  </body>
+</html>
