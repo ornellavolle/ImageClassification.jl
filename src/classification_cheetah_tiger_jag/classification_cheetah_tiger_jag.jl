@@ -42,6 +42,7 @@ using MLJ
 train_labels = coerce(train_labels, Multiclass)
 val_labels = coerce(val_labels, Multiclass)
 
+
 #Vérification des types scientifiques
 @assert scitype(train_images) <: AbstractVector{<:Image}
 @assert scitype(train_labels) <: AbstractVector{<:Finite}
