@@ -28,8 +28,11 @@ base_path = "/Users/matteoschweizer/Documents/GitHub/ImageClassification.jl/data
 train_path = joinpath(base_path, "train")
 val_path = joinpath(base_path, "validation")
 
-train_images, train_labels = load_images_from_folder(train_path)
-val_images, val_labels = load_images_from_folder(val_path)
+#train_images, train_labels = load_images_from_folder(train_path)
+#val_images, val_labels = load_images_from_folder(val_path)
+
+train_images, train_labels = load_dataset(dataset="train")
+val_images, val_labels = load_dataset(dataset="validation")
 
 println("Train set: $(length(train_images)) images")
 println("Validation set: $(length(val_images)) images")
@@ -105,8 +108,7 @@ mach = machine(clf, train_images, train_labels);
 
 using Flux
 using MLUtils
-#entrainement pour 10 épochs
-#fit!(mach, verbosity=2);
+
 
 
 
@@ -120,10 +122,15 @@ images_subset = train_images[idx]
 labels_subset = train_labels[idx]
 
 #Liaison (binding) du modèle
+
+#Si on veut utiliser juste un subset du dataset
 mach = machine(clf, images_subset, labels_subset)
 
+#si on veut utiliser tout le dataset
+#mach = machine(clf, train_images, train_labels)
+
 #entrainement pour 10 épochs
-#fit!(mach, verbosity=2)
+fit!(mach, verbosity=2)
 
 report(mach)
 
