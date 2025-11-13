@@ -9,4 +9,4 @@ load_image(joinpath("cheetah","cheetah_000_resized.jpg"))
 load_dataset()
 
 # exemple, import par dossier : 
-load_dataset(dataset="validation")
+load_dataset(dataset = "validation")

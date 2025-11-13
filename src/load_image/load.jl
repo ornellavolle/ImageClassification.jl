@@ -14,6 +14,7 @@ load_image(joinpath("cheetah","cheetah_000_resized.jpg"))
 # fonction pour charger l'ensemble des données d'un répertoire donné : base_dir
 # l'ensemble des images, redimensionnées en (64*64) sont stockées dans le vecteur X
 function load_dataset(;dataset::AbstractString = "train")
+    #classes = readdir(folder_path)
     imgs = []  # images : 
     # enregistrées sous la forme de matrices pour chaque photo avec comme éléments 
     # la définitions de couleurs RGB de chaque pixel 
@@ -25,9 +26,11 @@ function load_dataset(;dataset::AbstractString = "train")
         for path in readdir(class_dir)
             img = load_image(joinpath(cls,path); dataset=dataset)
             push!(imgs, img)
-            push!(labels, i)
+            push!(labels, cls)
         end
     end
-    return imgs, labels
+    return imgs
 end
+
+load_dataset()
 
