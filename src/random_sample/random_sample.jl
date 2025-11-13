@@ -12,7 +12,7 @@ function get_animal_dir(s::AnimalSampler, animal::String)
 end
 
 # --- Échantillonner n images pour UN animal ---
-function rand_one_animal(s::AnimalSampler, animal::String, n::Int)
+function Base.rand(s::AnimalSampler, animal::String, n::Int)
     animal_dir = get_animal_dir(s, animal)
     all_files = glob("*.jpg", animal_dir)
     if isempty(all_files)
@@ -26,13 +26,13 @@ function rand_one_animal(s::AnimalSampler, animal::String, n::Int)
 end
 
 
-# --- Échantillonner n images par animal ---
-function rand_each_animal(s::AnimalSampler, n::Int)
+# --- Échantillonner n images PAR animal ---
+function Base.rand(s::AnimalSampler, n::Int)
     # dictionnaire pour stocker les images
     sampled = Dict{String, Vector{Any}}()
     for animal in s.animals
         # échantillonnage avec min(n, nombre disponible)
-        imgs = rand_one_animal(s, animal, n)
+        imgs = rand(s, animal, n)
         sampled[animal] = imgs
         println("$animal : $(length(imgs)) images échantillonnées")
     end
