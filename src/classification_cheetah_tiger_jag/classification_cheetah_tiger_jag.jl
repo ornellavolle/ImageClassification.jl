@@ -47,6 +47,7 @@ using MLJ
 train_labels = coerce(train_labels, Multiclass)
 val_labels = coerce(val_labels, Multiclass)
 
+
 #Vérification des types scientifiques
 @assert scitype(train_images) <: AbstractVector{<:Image}
 @assert scitype(train_labels) <: AbstractVector{<:Finite}
@@ -129,10 +130,10 @@ labels_subset = train_labels[idx]
 #Liaison (binding) du modèle
 
 #Si on veut utiliser juste un subset du dataset
-mach = machine(clf, images_subset, labels_subset)
+#mach = machine(clf, images_subset, labels_subset)
 
 #si on veut utiliser tout le dataset
-#mach = machine(clf, train_images, train_labels)
+mach = machine(clf, train_images, train_labels)
 
 #entrainement pour 10 épochs
 fit!(mach, verbosity=2)
