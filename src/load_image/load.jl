@@ -29,7 +29,7 @@ function load_dataset(;dataset::AbstractString = "train")
             push!(labels, cls)
         end
     end
-    return imgs
+    return imgs, labels
 end
 
 load_dataset()

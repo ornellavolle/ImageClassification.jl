@@ -1,23 +1,13 @@
-
-#Il faut pas importer tout de suite ces pkg parce que sinon ça créé des confusion entre les fonctions surtout 
-#la fction load()
-
-
-#using Flux
-#import MLJFlux
-#import MLUtils
-#import MLJIteration  # pour 'skip'
-
-
-
 using ImageClassification
 import FileIO
 import Images
 using FileIO
 using Images  # pour charger tes images
 using Plots
-
-
+import MLJFlux
+using Random
+using Flux
+using MLUtils
 
 gr(size=(600, 300*(sqrt(5)-1))); #fixe la taille des figures (ici 600px de large)
 
@@ -33,33 +23,20 @@ train_dir = joinpath(root_dir,joinpath("data"))
 train_path = joinpath(train_dir, "train")
 val_path = joinpath(train_dir, "validation")
 
-#train_images, train_labels = load_images_from_folder(train_path)
-#val_images, val_labels = load_images_from_folder(val_path)
-
 train_images, train_labels = load_dataset(dataset="train")
 val_images, val_labels = load_dataset(dataset="validation")
-
-println("Train set: $(length(train_images)) images")
-println("Validation set: $(length(val_images)) images")
 
 #Conversion au format MLJ
 using MLJ
 train_labels = coerce(train_labels, Multiclass)
 val_labels = coerce(val_labels, Multiclass)
 
-
 #Vérification des types scientifiques
 @assert scitype(train_images) <: AbstractVector{<:Image}
 @assert scitype(train_labels) <: AbstractVector{<:Finite}
 
-
 #Visualiser une image
 train_images[2520]
-
-import MLJFlux
-#using Flux
-#using MLUtils  # pour flatten
-#using Random
 
 # --- Définition du constructeur ---
 struct MyConvBuilder
@@ -97,29 +74,20 @@ end
 # Charger le modèle MLJFlux.ImageClassifier
 ImageClassifier = @load ImageClassifier pkg=MLJFlux
 
-# Définir ton constructeur CNN (déjà défini avant)
-# struct MyConvBuilder ... (comme dans ton code précédent)
+# Définir le constructeur CNN (déjà défini avant)
 
-using Random
 # Paramètres de ton modèle
 clf = ImageClassifier(
     builder = MyConvBuilder(3, 16, 32, 64),  # filtres (3x3) et nombre de canaux
     batch_size = 32,                         # taille des lots d'entraînement
-    epochs = 10,                             # nombre d’époques
+    epochs = 1,                             # nombre d’époques
     rng = Random.default_rng(),              # graine aléatoire
 )
 
 #Liaison (binding) du modèle
 mach = machine(clf, train_images, train_labels);
 
-using Flux
-using MLUtils
-
-
-
-
 #création d'un subset aléatoire de 500 images du jeu de donnée cheetah...
-using Random
 
 subset_size = 500
 idx = randperm(length(train_images))[1:subset_size]
@@ -130,10 +98,10 @@ labels_subset = train_labels[idx]
 #Liaison (binding) du modèle
 
 #Si on veut utiliser juste un subset du dataset
-#mach = machine(clf, images_subset, labels_subset)
+mach = machine(clf, images_subset, labels_subset)
 
 #si on veut utiliser tout le dataset
-mach = machine(clf, train_images, train_labels)
+# mach = machine(clf, train_images, train_labels)
 
 #entrainement pour 10 épochs
 fit!(mach, verbosity=2)
@@ -147,14 +115,3 @@ y_pred = mode.(ŷ)
 # Évaluation
 println("Accuracy = ", accuracy(y_pred, val_labels))
 cm = confusion_matrix(val_labels, y_pred)
-cm
-
-# Sauvegarde du modèle
-MLJ.save("model.bson", mach)
-println("Modèle sauvegardé dans model.bson ✅")
-
-mach_restored, _ = MLJ.load("model.bson")
-
-# Tu peux l’utiliser directement :
-ŷ = predict(mach_restored, val_images)
-y_pred = mode.(ŷ)
