@@ -1,8 +1,6 @@
-using ImageClassification
-
 ########## Tests des opérations avec : ⊔ ##########
 
-include("animals_example.jl")
+include("animals.jl")
 
 animals[1] ⊔ animals[6]
 animals[16] ⊔ animals[17]

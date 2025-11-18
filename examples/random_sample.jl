@@ -1,5 +1,3 @@
-using ImageClassification
-
 ########## Tests de l'échantillonage d'animaux ##########
 
 # Définition du répertoire et de la liste d'animaux :

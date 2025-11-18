@@ -1,3 +1,5 @@
+using Images, ImageIO, FileIO
+using ImageTransformations
 
 # constante du répertoire :
 const root_dir = joinpath(dirname(@__FILE__),"..","..")
@@ -9,7 +11,6 @@ function load_image(path; dataset::AbstractString = "train", size=(200,200))
     return img
 end
 
-load_image(joinpath("cheetah","cheetah_000_resized.jpg"))
 
 # fonction pour charger l'ensemble des données d'un répertoire donné : base_dir
 # l'ensemble des images, redimensionnées en (64*64) sont stockées dans le vecteur X
@@ -32,5 +33,4 @@ function load_dataset(;dataset::AbstractString = "train")
     return imgs, labels
 end
 
-load_dataset()
 
