@@ -9,6 +9,7 @@ import MLJFlux
 using Random
 using Flux
 using MLUtils
+using MLJ
 
 gr(size=(600, 300*(sqrt(5)-1))); #fixe la taille des figures (ici 600px de large)
 
@@ -28,7 +29,7 @@ train_images, train_labels = load_dataset(dataset="train")
 val_images, val_labels = load_dataset(dataset="validation")
 
 #Conversion au format MLJ
-using MLJ
+
 train_labels = coerce(train_labels, Multiclass)
 val_labels = coerce(val_labels, Multiclass)
 

@@ -1,3 +1,5 @@
+using ImageClassificationµ
+
 ########## Tests des fonctions pour lire/redimensionner des images ##########
 
 # exemple d'utilisation de la fonction load_image :
