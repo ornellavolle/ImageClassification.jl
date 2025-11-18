@@ -21,12 +21,17 @@ using Plots
 
 gr(size=(600, 300*(sqrt(5)-1))); #fixe la taille des figures (ici 600px de large)
 
-# Chemin vers ton dossier 'data'
-base_path = "/Users/matteoschweizer/Documents/GitHub/ImageClassification.jl/data"
+# Chemin vers ton dossier 'data' : 
+
+# constante du répertoire :
+const root_dir = joinpath(dirname(@__FILE__),"..","..")
+
+# determination des chemins qui vont aux dossiers
+train_dir = joinpath(root_dir,joinpath("data"))
 
 # Chargement des datasets
-train_path = joinpath(base_path, "train")
-val_path = joinpath(base_path, "validation")
+train_path = joinpath(train_dir, "train")
+val_path = joinpath(train_dir, "validation")
 
 #train_images, train_labels = load_images_from_folder(train_path)
 #val_images, val_labels = load_images_from_folder(val_path)
