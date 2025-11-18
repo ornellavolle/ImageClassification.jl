@@ -4,8 +4,8 @@ using ImageClassification
 
 base_path = "/Users/admin/Desktop/MIASHS/MasterM1SSD/CoursRJulia/GitHub_package/ImageClassification.jl/data"
 
-train_images, train_labels = load_dataset(dataset="train")
-val_images,   val_labels   = load_dataset(dataset="validation")
+train_images, train_labels = load_dataset(dataset="train", size = (200,200))
+val_images,   val_labels   = load_dataset(dataset="validation", size = (200,200))
 
 println("Train set: $(length(train_images)) images")
 println("Validation set: $(length(val_images)) images")
@@ -21,8 +21,8 @@ function interface_images(images)
     # 
     ax = Makie.Axis(fig[1, 1], aspect = Makie.DataAspect())  # Taille NORMALISÉE
 
-    hidexdecorations!(ax)
-    hideydecorations!(ax)
+    Makie.hidexdecorations!(ax)
+   Makie.hideydecorations!(ax)
 
     # Observable index
     current_index = Makie.Observable(1)
