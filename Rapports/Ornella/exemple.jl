@@ -1,87 +1,92 @@
 import WGLMakie
 import Makie
-# ======== CHEMINS ========
+using ImageClassification
+
 base_path = "/Users/admin/Desktop/MIASHS/MasterM1SSD/CoursRJulia/GitHub_package/ImageClassification.jl/data"
 
-train_path = joinpath(base_path, "train")
-val_path   = joinpath(base_path, "validation")
-
-# ======== CHARGEMENT DU DATASET ========
 train_images, train_labels = load_dataset(dataset="train")
 val_images,   val_labels   = load_dataset(dataset="validation")
 
 println("Train set: $(length(train_images)) images")
 println("Validation set: $(length(val_images)) images")
 
-# ======== MLJ : conversion types ========
-train_labels = coerce(train_labels, Multiclass)
-val_labels   = coerce(val_labels, Multiclass)
-
-# Vérification MLJ
-@assert scitype(train_images) <: AbstractVector{<:Image}
-@assert scitype(train_labels) <: AbstractVector{<:Finite}
-
-# Pour tester une image :
-display(train_images[2520])
-
-
-# ============================================================
-#  INTERFACE GRAPHIQUE WGLMAKIE AVEC IMAGES DU DATASET
-# ============================================================
-
+##### Aprés l'importation des images on va faire notre interface graphique 
 WGLMakie.activate!()
 
 function interface_images(images)
+    
 
-    fig = Figure(size = (900, 650))
+    fig = Makie.Figure(size = (500, 500))
 
-    # Zone d'affichage
-    ax = Axis(fig[1, 1])
+    # 
+    ax = Makie.Axis(fig[1, 1], aspect = Makie.DataAspect())  # Taille NORMALISÉE
+
     hidexdecorations!(ax)
     hideydecorations!(ax)
 
     # Observable index
-    current_index = Observable(1)
+    current_index = Makie.Observable(1)
 
-    # image affichée (Observable)
-    image_obs = Observable(images[1])
-    image!(ax, image_obs)
+    # Correction orientation : WGLMakie inverse l'axe vertical.
+    # Donc ON REMET L’IMAGE À L’ENDROIT:
+    fix_orientation(img) = Makie.rotr90(img, 1)   # rotation 270° = correction standard
 
-    # Mise à jour quand on change l'index
-    on(current_index) do idx
-        image_obs[] = images[idx]
+    # Image affichée
+    image_obs = Makie.Observable( fix_orientation(images[1]) )
+    Makie.image!(ax, image_obs)
+
+    # Mise à jour quand l’index change
+    Makie.on(current_index) do idx
+        image_obs[] = fix_orientation(images[idx])
     end
 
-    # Bouton "Précédent"
-    btn_prev = Button(fig[2, 1], label = " Précédent")
-    on(btn_prev.clicks) do _
+
+  ## pour le bouton précédent
+    btn_prev = Makie.Button(fig[2, 1], label = " Précédent")
+    Makie.on(btn_prev.clicks) do _
         current_index[] = max(1, current_index[] - 1)
+        println("Image précédente → index : ", current_index[])
     end
+    ####on fait du mackie mais c'est okay car on peut tout de même 
 
-    # Bouton "Suivant"
-    btn_next = Button(fig[2, 2], label = "Suivant ")
-    on(btn_next.clicks) do _
+    # pour le bouton suivant
+    btn_next = Makie.Button(fig[2, 2], label = "Suivant ")
+    Makie.on(btn_next.clicks) do _
         current_index[] = min(length(images), current_index[] + 1)
+        println("Image suivante → index : ", current_index[])
     end
 
-    # Slider
-    slider = Slider(fig[3, 1:2], range = 1:length(images), startvalue = 1)
 
-    # Slider → index
-    on(slider.value) do v
+    slider = Makie.Slider(fig[3, 1:2], range = 1:length(images), startvalue = 1)
+
+   updating = Makie.Observable(false)
+
+# Slider → index
+Makie.on(slider.value) do v
+    #c'est une boucle qui nous permet de faire une image puis de regarder la suivante
+    if !updating[]
+        updating[] = true
         current_index[] = Int(v)
+        updating[] = false
     end
+end
 
-    # Index → slider
-    on(current_index) do idx
+# Index → slider
+Makie.on(current_index) do idx
+    if !updating[]
+        updating[] = true
         slider.value[] = idx
+        updating[] = false
     end
+end
 
-    display(fig)
+
+    Makie.display(fig)
 end
 
 # ============================================================
-#  LANCEMENT SUR LE DATASET TRAIN
+#                 LANCEMENT SUR LE TRAIN SET
 # ============================================================
 
 interface_images(train_images)
+#Warning: detected a stack overflow; program state may be corrupted, so further execution might be unreliable
