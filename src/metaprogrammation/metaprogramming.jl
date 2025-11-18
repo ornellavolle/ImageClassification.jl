@@ -70,19 +70,19 @@ end
 
 
 #interact functions
-function interact(a::AbstractAnimals, b::AbstractAnimals)
+function interact_meta(a::AbstractAnimals, b::AbstractAnimals)
     println(a.name, " observe prudemment ", b.name, ".")
 end
 
-function interact(a::Cheetah, b::Hyena)
+function interact_meta(a::Cheetah, b::Hyena)
     println("Le guépard ", a.name, " tente de voler une proie à la hyène ", b.name, " du clan de ", b.clan, " membres !")
 end
 
-function interact(a::Hyena, b::Cheetah)
+function interact_meta(a::Hyena, b::Cheetah)
     println("La hyène ", a.name, " et son clan encerclent le guépard ", b.name, " !")
 end
 
-function interact(a::Tiger, b::Tiger)
+function interact_meta(a::Tiger, b::Tiger)
     if a.territorial && b.territorial
         println("Les tigres ", a.name, " et ", b.name, " se disputent le territoire !")
     else
@@ -90,29 +90,29 @@ function interact(a::Tiger, b::Tiger)
     end
 end
 
-function interact(a::Tiger, b::Jaguar)
+function interact_meta(a::Tiger, b::Jaguar)
     println("Le tigre ", a.name, " montre sa force de ", a.strength, " N face au jaguar ", b.name, " à la mâchoire ", b.jaw_strength, " !")
 end
 
-function interact(a::Jaguar, b::Cheetah)
+function interact_meta(a::Jaguar, b::Cheetah)
     println("Le jaguar ", a.name, " ignore le guépard ", b.name, " : il préfère chasser près de l'eau.")
 end
 
-function interact(a::Hyena, b::Hyena)
+function interact_meta(a::Hyena, b::Hyena)
     println("Les hyènes ", a.name, " et ", b.name, " rient ensemble et chassent en meute.")
 end
 
-function interact(a::Tiger, b::Cheetah)
+function interact_meta(a::Tiger, b::Cheetah)
     println("Le tigre ", a.name, " observe prudemment le guépard ", b.name, ".")
 end
 
 # operators 
-⊔(a::Cheetah, b::Hyena) = a.weight / b.clan
-⊔(a::Hyena, b::Cheetah) = a.clan * b.speed
-⊔(a::Tiger, b::Tiger) = a.strength - b.strength
-⊔(a::Jaguar, b::Cheetah) = length(a.name) + length(b.name)
-⊔(a::Tiger, b::Cheetah) = a.strength / b.speed
-⊔(a::AbstractAnimals, b::AbstractAnimals) = length(a.name) + length(b.name)
+⨳(a::Cheetah, b::Hyena) = a.weight / b.clan
+⨳(a::Hyena, b::Cheetah) = a.clan * b.speed
+⨳(a::Tiger, b::Tiger) = a.strength - b.strength
+⨳(a::Jaguar, b::Cheetah) = length(a.name) + length(b.name)
+⨳(a::Tiger, b::Cheetah) = a.strength / b.speed
+⨳(a::AbstractAnimals, b::AbstractAnimals) = length(a.name) + length(b.name)
 
 
 # metaprogramming to generate functions 
@@ -127,46 +127,12 @@ for animal in keys(ANIMAL_PROPERTIES)
             # example of  interaction with a random generated cheetah
             cheetah = make_random_animal("Cheetah")
             if $(QuoteNode(animal)) != "Cheetah"
-                interact(animal_instance, cheetah)
-                println("⊔ with Cheetah: ", animal_instance ⊔ cheetah)
+                interact_meta(animal_instance, cheetah)
+                println("⨳ with Cheetah: ", animal_instance ⨳ cheetah)
+
             end
 
             return animal_instance
         end
     end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
