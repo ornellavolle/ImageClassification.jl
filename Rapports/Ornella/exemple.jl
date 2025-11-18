@@ -1,51 +1,59 @@
-using WGLMakie, Images
+using WGLMakie
+using Makie
+using GLMakie
+using ImageClssification
 
-# Active GLMakie pour l'affichage
-GLMakie.activate!()
+WGLMakie.activate!()
 
-# Fonction pour créer l'interface
 function interface_images()
-    # Crée une fenêtre Makie
-    fig = Figure(size = (800, 600))
+    fig = Figure(size = (900, 650))
 
-    # Zone pour afficher l'image
-    ax = GLMakie.Axis(fig[1, 1])
+    # Zone d'affichage
+    ax = Makie.Axis(fig[1, 1])
     hidexdecorations!(ax)
     hideydecorations!(ax)
 
-    # Génère des images aléatoires pour l'exemple
-    images = [rand(RGB, 400, 400) for _ in 1:5]  # 5 images aléatoires
-    current_index = Observable(1)  # Index de l'image actuelle
+    # Images factices
+    images = [rand(RGBf, 400, 400) for _ in 1:5]
 
-    # Affiche l'image actuelleusin
-    image_obs = @lift(images[$current_index])
+    # Observable pour l'index
+    current_index = Observable(1)
+
+    # Observable pour l'image courante
+    image_obs = Observable(images[1])
     image!(ax, image_obs)
 
-    # Boutons "Précédent" et "Suivant"
-    btn_prev = Button(fig[2, 1], label = "Précédent")
-    btn_next = Button(fig[2, 2], label = "Suivant")
+    # Mise à jour de l'image quand l'index change
+    on(current_index) do idx
+        image_obs[] = images[idx]
+    end
 
-    # Logique des boutons
+    # --- Bouton précédent ---
+    btn_prev = Button(fig[2, 1], label = "⬅️ Précédent")
     on(btn_prev.clicks) do _
         current_index[] = max(1, current_index[] - 1)
-        @info "Bouton Précédent cliqué - Index: $(current_index[])"
     end
 
+    # --- Bouton suivant ---
+    btn_next = Button(fig[2, 2], label = "Suivant ➡️")
     on(btn_next.clicks) do _
         current_index[] = min(length(images), current_index[] + 1)
-        @info "Bouton Suivant cliqué - Index: $(current_index[])"
     end
 
-    # Ajoute un slider pour naviguer entre les images
+    # --- Slider ---
     slider = Slider(fig[3, 1:2], range = 1:length(images), startvalue = 1)
-    on(slider.value) do val
-        current_index[] = val
-        @info "Slider déplacé - Index: $val"
+
+    # Slider → index
+    on(slider.value) do v
+        current_index[] = Int(v)
     end
 
-    # Affichage de la fenêtre
+    # Index → slider (pour garder la synchro)
+    on(current_index) do idx
+        slider.value[] = idx
+    end
+
     display(fig)
 end
 
-# Lance l'interface
 interface_images()

@@ -12,11 +12,11 @@ btn_next = Button(fig[1, 2], label = "Suivant")
 
 # Logique des boutons (affiche un message dans la console)
 on(btn_prev.clicks) do _
-    println("Bouton Précédent cliqué !")
+    println("Bouton Précédent à était bien cliqué")
 end
 
 on(btn_next.clicks) do _
-    println("Bouton Suivant cliqué !")
+    println("Bouton Suivant à était bien cliqué")
 end
 
 # Affiche la fenêtre
