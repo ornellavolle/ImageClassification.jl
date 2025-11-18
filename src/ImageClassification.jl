@@ -1,11 +1,9 @@
 module ImageClassification
 
-# Packages à importer : 
-using Images, ImageIO, FileIO
-using ImageTransformations
 using MLJFlux
 
 # exports : 
+
 export load_image, load_dataset
 export Cheetah, Hyena, Jaguar, Tiger
 export interact
@@ -15,7 +13,7 @@ export rand, rand_all
 export Animal, Carnivore, Herbivore, Cerf, Loup
 export describe, random_value, make_random_animal, interact
 export process_cheetah, process_hyena, process_jaguar, process_tiger
-export MyConvBuilder, MLJFlux
+
 
 # Création d'une fonction qui détermine la forme du réseau de neurone, fonction qui provient du package MLJFlux : 
 

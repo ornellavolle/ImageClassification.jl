@@ -1,8 +1,9 @@
 using ImageClassification
+
 import FileIO
 import Images
 using FileIO
-using Images  # pour charger tes images
+using Images
 using Plots
 import MLJFlux
 using Random

@@ -1,8 +1,6 @@
-using ImageClassification
-
 ########## Tests du Multiple Dispaching  ##########
 
-include("animals_example.jl")
+include("animals.jl")
 
 # interaction entre Cheetah et Hyena : 
 interact(animals[5],animals[7])
