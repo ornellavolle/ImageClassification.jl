@@ -13,7 +13,7 @@ export rand, rand_all
 export Animal, Carnivore, Herbivore, Cerf, Loup
 export describe, random_value, make_random_animal, interact
 export process_cheetah, process_hyena, process_jaguar, process_tiger
-
+export load_lux_model, preprocess_lux_image, predict_lux_class, predict_lux_probabilities
 
 # Création d'une fonction qui détermine la forme du réseau de neurone, fonction qui provient du package MLJFlux : 
 
@@ -46,5 +46,8 @@ include("random_sample/random_sample.jl")
 # Métaprogrammation : 
 
 include("metaprogrammation/metaprogramming.jl")
+
+#Lux classification :
+include("classificationLux/classification_lux.jl")
 
 end
