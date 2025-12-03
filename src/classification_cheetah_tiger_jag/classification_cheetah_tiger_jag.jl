@@ -10,6 +10,8 @@ using Random
 using Flux
 using MLUtils
 using MLJ
+using CategoricalArrays
+using ScientificTypes
 
 gr(size=(600, 300*(sqrt(5)-1))); #fixe la taille des figures (ici 600px de large)
 
@@ -28,9 +30,11 @@ val_path = joinpath(train_dir, "validation")
 train_images, train_labels = load_dataset(dataset="train")
 val_images, val_labels = load_dataset(dataset="validation")
 
+train_labels_str = String.(train_labels)
+val_labels_str = String.(val_labels)
 #Conversion au format MLJ
 
-train_labels = coerce(train_labels, Multiclass)
+train_labels = coerce(train_labels_str, Multiclass)
 val_labels = coerce(val_labels, Multiclass)
 
 #Vérification des types scientifiques
@@ -117,3 +121,5 @@ y_pred = mode.(ŷ)
 # Évaluation
 println("Accuracy = ", accuracy(y_pred, val_labels))
 cm = confusion_matrix(val_labels, y_pred)
+
+

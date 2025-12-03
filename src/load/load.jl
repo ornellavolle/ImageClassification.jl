@@ -5,10 +5,16 @@ using ImageTransformations
 const root_dir = joinpath(dirname(@__FILE__),"..","..")
 
 # Fonction pour charger une image et la redimensionner en 64*64 :
+
 function load_image(path; dataset::AbstractString = "train", size=(200,200))
-    img = load(joinpath(root_dir,joinpath("data",dataset),path))
-    img = imresize(img,size) # Redimensionner
-    return img
+    full_path = joinpath(root_dir, "data", dataset, path)
+    # Charger l'image
+    img = FileIO.load(full_path)  # `load` doit venir de FileIO
+    # Vérifier que l'image est en RGB
+    img_rgb = colorview(RGB, img)  # si ce n'est pas déjà le cas
+    # Redimensionner
+    img_resized = imresize(img_rgb, size)
+    return img_resized
 end
 
 

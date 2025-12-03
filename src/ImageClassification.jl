@@ -1,7 +1,5 @@
 module ImageClassification
 
-using MLJFlux
-
 # exports : 
 
 export load_image, load_dataset
@@ -13,7 +11,7 @@ export rand, rand_all
 export Animal, Carnivore, Herbivore, Cerf, Loup
 export describe, random_value, make_random_animal, interact
 export process_cheetah, process_hyena, process_jaguar, process_tiger
-
+export MyConvBuilder, MLJFlux
 
 # Création d'une fonction qui détermine la forme du réseau de neurone, fonction qui provient du package MLJFlux : 
 
@@ -25,7 +23,7 @@ include("type_creation/type_creation.jl")
 
 # Lire et redimensionner des images : 
 
-include("load_image/load.jl")
+include("load/load.jl")
 
 # Animals personnalise l'affichage de différents struct : 
 
@@ -46,5 +44,9 @@ include("random_sample/random_sample.jl")
 # Métaprogrammation : 
 
 include("metaprogrammation/metaprogramming.jl")
+
+# Classidication : 
+
+include("classification_cheetah_tiger_jag/classification_cheetah_tiger_jag.jl")
 
 end
