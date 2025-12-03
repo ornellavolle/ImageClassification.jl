@@ -1,3 +1,5 @@
+using ImageClassification
+
 ########## Tests des struct/ Multiple Dispaching  ##########
 
 # Liste de 20 animaux avec leurs attributs

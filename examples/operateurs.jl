@@ -1,3 +1,5 @@
+using ImageClassification
+
 ########## Tests des opérations avec : ⊔ ##########
 
 include("animals.jl")

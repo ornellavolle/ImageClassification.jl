@@ -1,3 +1,5 @@
+using ImageClassification
+
 ########## Tests du Multiple Dispaching  ##########
 
 include("animals.jl")

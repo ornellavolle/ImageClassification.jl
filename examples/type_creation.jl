@@ -1,3 +1,5 @@
+using ImageClassification
+
 crier(::Cerf) = "Bramer"
 crier(::Loup) = "Hurler"
 

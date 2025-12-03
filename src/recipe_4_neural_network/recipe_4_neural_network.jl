@@ -1,3 +1,5 @@
+using MLJFlux
+
 # --- Définition du constructeur ---
 struct MyConvBuilder
     filter_size::Int      # taille des filtres de convolution (ex: 3)

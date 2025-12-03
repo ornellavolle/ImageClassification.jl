@@ -1,7 +1,5 @@
 using ImageClassification
 
-using FileIO
-
 # load the already trained model
 model, ps, st, classes, μ, σ = load_lux_model("modelLux.bson"); nothing
 

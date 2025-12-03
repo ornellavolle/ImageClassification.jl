@@ -1,4 +1,4 @@
-using ImageClassificationµ
+using ImageClassification
 
 ########## Tests des fonctions pour lire/redimensionner des images ##########
 
