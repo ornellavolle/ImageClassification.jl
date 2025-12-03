@@ -4,6 +4,7 @@ version = "0.0.1"
 authors = ["ornellavolle <ornellavolle@gmail.com>"]
 
 [deps]
+BSON = "fbb218c0-5317-5bc6-957e-2ee96dd4b1f0"
 Bonito = "824d6782-a2ef-11e9-3a09-e5662e0c26f8"
 CategoricalArrays = "324d7699-5711-5eae-9e2f-1d82baa6b597"
 FileIO = "5789e2e9-d7fb-5bc7-8068-2c6fae9b9549"
@@ -29,6 +30,7 @@ WGLMakie = "276b4fcb-3e11-5398-bf8b-a0c2d153d008"
 Zygote = "e88e6eb3-aa80-5325-afca-941959d7151f"
 
 [compat]
+BSON = "0.3.9"
 Bonito = "4.1.11"
 CategoricalArrays = "0.10.8"
 FileIO = "1.17.1"

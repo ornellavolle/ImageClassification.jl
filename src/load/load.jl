@@ -20,7 +20,7 @@ end
 
 # fonction pour charger l'ensemble des données d'un répertoire donné : base_dir
 # l'ensemble des images, redimensionnées en (64*64) sont stockées dans le vecteur X
-function load_dataset(;dataset::AbstractString = "train")
+function load_dataset(;dataset::AbstractString = "train", size=(200,200) )
     #classes = readdir(folder_path)
     imgs = []  # images : 
     # enregistrées sous la forme de matrices pour chaque photo avec comme éléments 
@@ -31,7 +31,7 @@ function load_dataset(;dataset::AbstractString = "train")
     for (i, cls) in enumerate(classes)
         class_dir = joinpath(base_dir, cls)    
         for path in readdir(class_dir)
-            img = load_image(joinpath(cls,path); dataset=dataset)
+            img = load_image(joinpath(cls,path); dataset=dataset, size = size)
             push!(imgs, img)
             push!(labels, cls)
         end

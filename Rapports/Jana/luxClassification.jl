@@ -10,11 +10,11 @@ using Optimisers
 using OneHotArrays: onehotbatch, onecold
 using NNlib
 using ImageTransformations  
-
+using BSON
 
 #IMAGE LOADING 
 
-function load_images(data_dir; img_size=(128,128))
+function load_images(data_dir; img_size=(64,64))
     classes = filter(x -> isdir(joinpath(data_dir, x)), readdir(data_dir))
     all_images = Vector{Array{Float32,3}}()
     labels = Int[]
@@ -64,7 +64,8 @@ function normalize_train_test(X_train, X_test)
     X_train_n = (X_train .- μ) ./ (σ .+ 1f-7)
     X_test_n  = (X_test  .- μ) ./ (σ .+ 1f-7)
 
-    return X_train_n, X_test_n
+    return X_train_n, X_test_n, μ, σ
+
 end
 
 
@@ -84,11 +85,7 @@ function augment_batch(x)
             img = reverse(img, dims=2)
         end
 
-        # tiny rotation example 
-        # if rand() < 0.2
-        #     angle = randn() * (5 * pi / 180)  # ~±5°
-        #     img = imrotate(img, angle, axes=axes(img), fill=0f0)
-        # end
+       
 
         x_aug[:, :, :, i] = img
     end
@@ -113,7 +110,7 @@ function create_cnn(num_classes)
         Lux.MaxPool((2,2)),
 
         Lux.FlattenLayer(),
-        Lux.Dense(128*16*16, 128, Lux.relu),
+        Lux.Dense(128*8*8, 128, Lux.relu),
         Lux.Dense(128, num_classes)
     )
 end
@@ -229,7 +226,8 @@ function main()
     println("Loading validation data…")
     X_test,  y_test,  _ = load_images("data/validation")
 
-    X_train, X_test = normalize_train_test(X_train, X_test)
+    X_train, X_test, μ, σ = normalize_train_test(X_train, X_test)
+
 
     y_train_oh = onehotbatch(y_train, 1:length(classes))
 
@@ -247,7 +245,7 @@ function main()
     best_ps = ps
     best_st = st
 
-    for epoch in 1:30
+    for epoch in 1:10
         loss, ps, st, opt_state = train_epoch!(model, ps, st, opt_state, train_loader)
         acc, _, _ = test_accuracy(model, ps, st, X_test, y_test; nclasses=length(classes))
 
@@ -265,8 +263,14 @@ function main()
     acc, pred, truth = test_accuracy(model, best_ps, best_st, X_test, y_test; nclasses=length(classes))
     cm = confusion_matrix(pred, truth; nclasses=length(classes), class_names=classes)
     show_sample_predictions(model, best_ps, best_st, X_test, y_test, classes; n=5)
+    
+    # Save model 
+    BSON.@save "modelLux.bson" model best_ps best_st classes μ σ
 
-    return best_ps, best_st, model, classes, cm
+    println("Model saved to modelLux.bson")
+
+    return best_ps, best_st, model, classes, μ, σ, cm
+
 end
 
-ps, st, model, classes, cm = main();
+ps, st, model, classes, μ, σ, cm = main();
