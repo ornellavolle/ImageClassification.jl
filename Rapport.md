@@ -1,11 +1,8 @@
-# New Book2
+# New Book
 
 ```julia (editor=true, logging=false, output=true)
-12
+
 ```
-12
-
 ```julia (editor=true, logging=false, output=true)
-a=1
-a + 2
+
 ```

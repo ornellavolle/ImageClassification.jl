@@ -4,11 +4,10 @@ using ImageClassification
 model, ps, st, classes, μ, σ = load_lux_model("modelLux.bson"); nothing
 
 # load the image to classify it
-img = load("data/validation/cheetah/cheetah_032_val_resized.jpg")
-
+img = load_image(joinpath("cheetah","cheetah_000_resized.jpg"))
 
 # Convert it to Lux format
-X = preprocess_lux_image(img, μ, σ)  
+µX = preprocess_lux_image(img, μ, σ)  
 
 # predict it
 label = predict_lux_class(model, ps, st, X, classes)
