@@ -10,15 +10,17 @@ using Random
 using Flux
 using MLUtils
 using MLJ
+<<<<<<< Updated upstream
 using CategoricalArrays
 using ScientificTypes
 
 julia> function f()
+=======
+>>>>>>> Stashed changes
 
 gr(size=(600, 300*(sqrt(5)-1))); #fixe la taille des figures (ici 600px de large)
 
 # Chemin vers ton dossier 'data' : 
-
 # constante du répertoire :
 const root_dir = joinpath(dirname(@__FILE__),"..","..")
 
@@ -35,16 +37,21 @@ val_images, val_labels = load_dataset(dataset="validation")
 train_labels_str = String.(train_labels)
 val_labels_str = String.(val_labels)
 #Conversion au format MLJ
+<<<<<<< Updated upstream
 
 train_labels = coerce(train_labels_str, Multiclass)
+=======
+train_labels = coerce(train_labels, Multiclass)
+>>>>>>> Stashed changes
 val_labels = coerce(val_labels, Multiclass)
+
 
 #Vérification des types scientifiques
 @assert scitype(train_images) <: AbstractVector{<:Image}
 @assert scitype(train_labels) <: AbstractVector{<:Finite}
 
 #Visualiser une image
-train_images[2520]
+#train_images[2520]
 
 # --- Définition du constructeur ---
 struct MyConvBuilder
@@ -123,3 +130,14 @@ y_pred = mode.(ŷ)
 # Évaluation
 println("Accuracy = ", accuracy(y_pred, val_labels))
 cm = confusion_matrix(val_labels, y_pred)
+
+
+MLJ.save("cheetah_cnn.jls", mach)
+
+mach_loaded = machine("cheetah_cnn.jls")
+y_chap=predict(mach_loaded, val_images)
+y_pred2=mode.(y_chap)
+
+# Évaluation
+println("Accuracy = ", accuracy(y_pred2, val_labels))
+cm = confusion_matrix(val_labels, y_pred2)
