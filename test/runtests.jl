@@ -9,4 +9,3 @@ using ImageClassification
         include("unit/animals.jl")
 end
 
-# lancer les tests : test

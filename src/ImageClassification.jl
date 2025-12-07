@@ -49,8 +49,4 @@ include("metaprogrammation/metaprogramming.jl")
 # Lux classification :
 include("classificationLux/classification_lux.jl")
 
-# Classidication : 
-
-#include("classification_cheetah_tiger_jag/classification_cheetah_tiger_jag.jl")
-
 end
