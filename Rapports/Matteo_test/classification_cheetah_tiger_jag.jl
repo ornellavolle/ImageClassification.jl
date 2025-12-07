@@ -11,10 +11,13 @@ using Flux
 using MLUtils
 using MLJ
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 using CategoricalArrays
 using ScientificTypes
 
 julia> function f()
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 
@@ -38,9 +41,12 @@ train_labels_str = String.(train_labels)
 val_labels_str = String.(val_labels)
 #Conversion au format MLJ
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
 train_labels = coerce(train_labels_str, Multiclass)
 =======
+=======
+>>>>>>> Stashed changes
 train_labels = coerce(train_labels, Multiclass)
 >>>>>>> Stashed changes
 val_labels = coerce(val_labels, Multiclass)
