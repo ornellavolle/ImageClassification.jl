@@ -2,6 +2,7 @@ using ImageClassification
 
 import FileIO
 import Images
+
 using FileIO
 using Images
 using Plots
@@ -13,11 +14,12 @@ using MLJ
 using CategoricalArrays
 using ScientificTypes
 
-gr(size=(600, 300*(sqrt(5)-1))); #fixe la taille des figures (ici 600px de large)
+#fixe la taille des figures (ici 600px de large) :
+gr(size=(600, 300*(sqrt(5)-1))); 
 
 # Chemin vers ton dossier 'data' : 
 # constante du répertoire :
-const root_dir = joinpath(dirname(@__FILE__),"..","..")
+const root_dir = joinpath(dirname(@__FILE__),"..")
 
 # determination des chemins qui vont aux dossiers
 train_dir = joinpath(root_dir,joinpath("data"))
@@ -36,11 +38,13 @@ train_labels = coerce(train_labels_str, Multiclass)
 val_labels = coerce(val_labels, Multiclass)
 
 
+
 #Vérification des types scientifiques
 @assert scitype(train_images) <: AbstractVector{<:Image}
 @assert scitype(train_labels) <: AbstractVector{<:Finite}
 
 #Visualiser une image
+#train_images[2520]
 #train_images[2520]
 
 # --- Définition du constructeur ---
@@ -54,7 +58,7 @@ end
 function MLJFlux.build(b::MyConvBuilder, rng, image_size, n_out, n_channels)
     # image_size = (height, width)
     k, c1, c2, c3 = b.filter_size, b.channels1, b.channels2, b.channels3
-    mod(k, 2) == 1 || error("`filter_size` must be odd.")
+    mod(k, 2) == 1 || error("filter_size must be odd.")
     p = div(k - 1, 2)  # padding pour garder même taille après conv
     init = Flux.glorot_uniform(rng)
 
@@ -131,4 +135,4 @@ y_pred2=mode.(y_chap)
 
 # Évaluation du modèle sauvegardé (qui sont censée être les mêmes qu'avant)
 println("Accuracy = ", accuracy(y_pred2, val_labels))
-cm = confusion_matrix(val_labels, y_pred2)
+cm = confusion_matrix(val_labels, y_pred2)

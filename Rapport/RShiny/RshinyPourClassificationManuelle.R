@@ -1,0 +1,297 @@
+library(shiny)
+library(shinyFiles)
+library(shinydashboard)
+library(mime)
+
+ui <- dashboardPage(
+  ################################# Mise en page ##############################
+  skin = "green",
+  
+  dashboardHeader(title = "Classification d'images ", titleWidth = 300),
+  
+  dashboardSidebar(
+    width = 300,
+    sidebarMenu(
+      # Logo (placé dans /www) j'ai créer un texte
+      HTML(paste0(
+        "<br>",
+        "<a href='https://www.univ-grenoble-alpes.fr/' target='_blank'>
+  <img style='display: block; margin-left: auto; margin-right: auto;' 
+  src='Logo_Université_Grenoble_Alpes_2020.svg' width='140'></a>",
+        "<br>",
+        "<p style='text-align: center;'>
+  <small><a href='https://www.univ-grenoble-alpes.fr/' target='_blank'>
+  Université Grenoble Alpes</a></small></p>",
+        "<br>"
+      )),
+      menuItem("Home", tabName = "home", icon = icon("home")),
+      menuItem("À propos de notre projet", tabName = "about", icon = icon("info-circle")),
+      
+      # Footer simple
+      HTML(paste0(
+        "<br><br><br><br><br><br><br>",
+        "<p style='text-align: center;'>
+        <small>&copy; <a href='https://www.univ-grenoble-alpes.fr/' target='_blank'>
+        Université Grenoble Alpes</a> - <script>document.write(new Date().getFullYear());</script></small></p>"
+      ))
+    )
+  ),
+  
+  ############################# Contenu principal ###########################
+  dashboardBody(
+    tabItems(
+      
+      ######################Onglet 1:Home#######################
+      tabItem("home",
+              h2("Classification d'images"),
+              sidebarLayout(
+                #On fait une mise en page à deux parties :
+                #à gauche : un panneau latéral (sidebarPanel)
+                sidebarPanel(
+                  shinyDirButton("folder", "Choisir un dossier", "Selection d'un dossier d'images"),
+                  #c'est un bouton qui prend id, label, title,
+                  #Le texte sur le bouton est “Choisir un dossier”.
+                  br(), br(),
+                  #sauter une ligne 
+                  uiOutput("image_selector")
+                  #outputId c'est ce qui va réserver une zone qui peu être changé dans l’interface 
+                  #on va y mettre (dans server) un menu déroulant pour choisir une image
+                ),
+            
+                   mainPanel(
+                    fluidRow(
+                      column(
+                        width = 8,
+                        div(
+                          imageOutput("displayed_image", width = "100%")
+                        ),
+                        br(),
+                        actionButton("précedent", "Précédent"),
+                        actionButton("suivant", "Suivant"), 
+                        br(),br(),
+                        actionButton("ajouterDossier", "ajouter dans le dossier", 
+                                     class = "btn btn-success", 
+                                     title = "ajouter dans le dossier")
+                      ),
+                      column(
+                        width = 4,
+                        h4("Gestion des photos :"),
+                        selectInput(
+                          inputId = "maSelection",
+                          label = "Les différents dossiers",
+                          choices = c("Vous devez créer un premier dossier"),
+                          multiple = FALSE
+                        ),
+                        br(),
+                        actionButton("CréerDossier", "créer un dossier", 
+                                     class = "btn btn-success", 
+                                     title = "Créer un nouveau dossier"),
+                      ))))),
+                       
+                        
+      ######################Onglet 2: à propos de notre projet #######################
+      tabItem("about",
+              h2("À propos de cette application"),
+              br(),
+              p("Cette application Shiny a été développée dans le cadre d’un projet à l’Université Grenoble Alpes dans la matière Logiciels Spécialisés au 1er semestre. Elle permet de sélectionner un dossier d’images et ensuite d’afficher les photos une par une et de les classer dans différents dossiers."),
+              br(),
+              h3("Avec ce site nous pouvons : "),
+              tags$ul(
+                tags$li("Sélectionner un dossier contenant des images"),
+                tags$li("Parcourir les images avec les boutons 'Précédent' et 'Suivant'"),
+                tags$li("Créer de nouveaux dossiers de classification directement depuis l’interface"),
+                tags$li("Pour l'importation des dossiers cela se fera automatiquement dés qu'on mets une image dans un dossier. Les différents dossiers créer serons directment mis sur le bureau de votre ordinateur. ")
+              ),
+              h3("Information importante : "),
+              tags$ul(
+                tags$li("Le dossier que vous créer ne dois pas déjà être présent dans le bureau, de plus vous devez faire attention car les dossier qui serons sur votre bureau seront aussi importer dans la liste"),
+              ))
+      #p("texte") ça crée un paragraphe.
+      #h2(), h3(), h4() pour les titres de différents niveaux comme sur Rmarkdown.
+      #tags$ul() et tags$li() des liste à puces.
+      
+      )))
+
+#########################
+#########################
+#########################
+
+server <- function(input, output, session) {
+  
+  # Define server logic required to draw a histogram
+  #roots = c(home = "~")
+  #Je préfére le mettre dans une navigation générale pour les gens qui cherchent un dossier 
+  #maiq pour que ce soit plus simple pour moi je l'ai mis dans mon répertoire
+  roots = c(home = '/Users/admin/Desktop/')
+  # Autoriser la navigation dans le système de fichiers
+  shinyDirChoose(input, "folder", roots = roots, session = session)
+  
+  # Réactif pour stocker le dossier choisi
+  folder_path <- reactive({
+    if (is.null(input$folder)) return(NULL)
+    normalizePath(parseDirPath(roots = roots, input$folder))
+  })
+  
+  # Liste des images dans le dossier
+  images <- reactive({
+    req(folder_path())
+    list.files(folder_path(), pattern = "\\.(png|jpg|jpeg|gif)$", full.names = TRUE)
+  })
+  
+  # Menu déroulant dynamique selon le dossier choisi
+  output$image_selector <- renderUI({
+    req(images())
+    selectInput("image", "Choisir une image :", choices = basename(images()))
+  })
+  
+  index <- reactiveVal(1)
+  ####################
+  ############################# BOUTON SUIVANT
+  ############################################################## 
+  
+  observeEvent(input$suivant, {
+    req(images())
+    idx = index() + 1
+    #on fait une boucle
+    if(idx > length(images())){
+      idx = 1
+      }  # boucle qui bouge vers la droite donc la fin du dossier (length(images))
+    index(idx)
+    updateSelectInput(session, "image", selected = basename(images())[idx])
+  })
+  
+  ####################
+  ############################# BOUTON PRECEDENT
+  ##############################################################
+  
+  observeEvent(input$précedent, {
+    req(images())
+    idx = index() - 1
+    if(idx < 1){
+      #boucle basique qui commence là où l'image est 
+    idx = length(images())
+    } ## boucle qui bouge vers le debut du fichier
+    index(idx)
+    updateSelectInput(session, "image", selected = basename(images())[idx])
+    #quand tu cliques sur suivant ou précédent ça va changer automatiquement 
+    #le menu déroulant pour montrer l’image courante comme ça une sorte de reset
+    # sinon le menu reste bloqué sur l’ancienne image ce qui serait un peu chelou
+  })
+  
+  ####################
+  ############################# BOUTON AJOUTER UN DOSSIER
+  ##############################################################
+  observeEvent(input$ajouterDossier, {
+    #Cette fonction va permettre de rajouter l'image dans un dossier dans la liste qui est selectionné (maSelection)
+    req(input$image, input$maSelection, folder_path())
+    #notre fonction req va vérfifier si notre image existe bien dans notre dossier
+
+    src = file.path(folder_path(), input$image)#Chemin de l'image où on est
+    
+    bureau = path.expand("~/Desktop")
+    destination = file.path(bureau, input$maSelection)
+    #Chemin de l'image òu ça va être importer commme ça les individus qui l'utilisent peuvent le voir directement sur leur bureau
+    # Dossier de destination
+    if (!dir.exists(destination)) {
+      # va créer le dossier s’il n’existe pas
+      #car il y a un moment ou le dossier était déjà créer et j'ai eu une erreur 
+      dir.create(destination)
+      #tu créer la desitnation (donc un dossier avec le nom que j'ai avec input$MaSelection)
+    }
+  
+    destination_path = file.path(destination, input$image)
+  #là c'est pour pour bien montrer qu'on est dans le bon path 
+    success = file.copy(src, destination_path, overwrite = TRUE)
+    #on va ensuite copier l'image dans le dossier qui correspond à notre input$MaSelection (graçe a destination)
+     
+    #c'est juste pour l'estetique pour montrer que l'image à bien était importer ou non 
+    if (success) {
+      showNotification(
+        #une petite notif qui est envoyé en bas de l'écran
+        paste("L'image à était ajoutée dans le dossier :", input$maSelection),
+        type = "message", duration = 5
+      )
+    } else {
+      showNotification("Impossible d’ajouter l’image.", type = "error")
+    }
+  })
+  
+  ####################
+  ############################# BOUTON CREER UN DOSSIER
+  ##############################################################
+  
+#Cette fonction va permettre de créer un dossier dans la liste qui est selectionné (maSelection)
+  observeEvent(input$CréerDossier, {
+    showModal(modalDialog(
+      title = "Créer un nouveau dossier",
+      textInput("NouveauDossier", "Nom du nouveau dossier :", ""),
+      easyClose = FALSE,
+      footer = tagList(
+        modalButton("Annuler"),
+        actionButton("Creation", "Créer", class = "btn-success")
+      )
+    ))
+  })
+  
+  # Confirmer la création
+  observeEvent(input$Creation, {
+    req(input$NouveauDossier)                     # nom du dossier non vide
+    bureau = path.expand("~/Desktop") 
+    dest_parent = bureau # notre base : le Bureau
+    # si tu veux créer directement dans le Bureau sans sous-dossier choisi,
+
+ # va créer le parent s'il n'existe pas (au cas où maSelection n'existait pas)
+    if (!dir.exists(dest_parent)) dir.create(dest_parent, recursive = TRUE)
+    
+    new_dir <- file.path(dest_parent, input$NouveauDossier)
+    
+    if (dir.exists(new_dir)) {
+      showNotification("Ce dossier existe déjà.", type = "warning")
+    } else {
+      fonctionne = dir.create(new_dir)
+      if (!fonctionne) {
+        showNotification("Erreur lors de la création du dossier.", type = "error")
+        removeModal()
+        return()
+      }
+      showNotification(paste("Dossier créé :", input$NouveauDossier), type = "message")
+      all_subdirs <- list.dirs(bureau, full.names = FALSE, recursive = FALSE)
+      
+      updateSelectInput(session, "maSelection",
+                        choices = all_subdirs,
+                        selected = basename(dest_parent))
+    }
+    
+    removeModal()
+  })
+  
+  
+  # Affichage de l'image choisie
+  output$displayed_image <- renderImage({
+    req(input$image, images())
+    file_path <- file.path(folder_path(), input$image)
+    
+    list(
+      src = file_path,
+      contentType = mime::guess_type(file_path),
+      width = "auto",
+      height = "auto"
+    )
+  }, deleteFile = FALSE)
+  
+  
+  output$distPlot <- renderPlot({
+    # Take a dependency on input$goButton. This will run once initially,
+    # because the value changes from NULL to 0.
+    input$suivant
+    input$précendent
+    
+  })
+}
+##################### EXEMPLE pour un modalDialog sur https://shiny.posit.co/r/reference/shiny/latest/modaldialog.html
+
+#input$monSlider1 # > 25
+#input$monSlider2 #>0 
+#input$maSelection # > "Pomme"
+
+shinyApp(ui, server)
