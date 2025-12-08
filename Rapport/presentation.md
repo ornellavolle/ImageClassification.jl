@@ -114,3 +114,9 @@ Nous avons en tout réalisés ainsi 5 test unitaires de fonctionnalités de notr
 Le fichier 'runtests.jl" centralise tous les tests unitaires et les exécute dans un seul ensemble.
 
 L'exécution de cette partie de code renvoie le retour de chaque test ainsi qu'un tableau de scores indiquant combien de tests sont passés, ont échoué ou ont provoqué une erreur.
+
+---
+
+### Conclusion
+
+Merci Rémy et à bientôt :)
