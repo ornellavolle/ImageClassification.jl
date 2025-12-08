@@ -10,19 +10,8 @@ using Random
 using Flux
 using MLUtils
 using MLJ
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 using CategoricalArrays
 using ScientificTypes
-
-julia> function f()
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 
 gr(size=(600, 300*(sqrt(5)-1))); #fixe la taille des figures (ici 600px de large)
 
@@ -43,18 +32,7 @@ val_images, val_labels = load_dataset(dataset="validation")
 train_labels_str = String.(train_labels)
 val_labels_str = String.(val_labels)
 #Conversion au format MLJ
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-
 train_labels = coerce(train_labels_str, Multiclass)
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-train_labels = coerce(train_labels, Multiclass)
->>>>>>> Stashed changes
 val_labels = coerce(val_labels, Multiclass)
 
 
@@ -130,7 +108,7 @@ mach = machine(clf, images_subset, labels_subset)
 #si on veut utiliser tout le dataset
 # mach = machine(clf, train_images, train_labels)
 
-#entrainement pour 10 épochs
+#entrainement pour 1 époch
 fit!(mach, verbosity=2)
 
 report(mach)
@@ -146,10 +124,11 @@ cm = confusion_matrix(val_labels, y_pred)
 
 MLJ.save("cheetah_cnn.jls", mach)
 
+#Code permettant de relancer le modèle sauvegardé sans avoir à le ré-entraîner
 mach_loaded = machine("cheetah_cnn.jls")
 y_chap=predict(mach_loaded, val_images)
 y_pred2=mode.(y_chap)
 
-# Évaluation
+# Évaluation du modèle sauvegardé (qui sont censée être les mêmes qu'avant)
 println("Accuracy = ", accuracy(y_pred2, val_labels))
 cm = confusion_matrix(val_labels, y_pred2)
