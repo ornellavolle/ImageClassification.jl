@@ -2,6 +2,7 @@ using ImageClassification
 
 import FileIO
 import Images
+
 using FileIO
 using Images
 using Plots
@@ -13,14 +14,12 @@ using MLJ
 using CategoricalArrays
 using ScientificTypes
 
-julia> function f()
-
-gr(size=(600, 300*(sqrt(5)-1))); #fixe la taille des figures (ici 600px de large)
+#fixe la taille des figures (ici 600px de large) :
+gr(size=(600, 300*(sqrt(5)-1))); 
 
 # Chemin vers ton dossier 'data' : 
-
 # constante du répertoire :
-const root_dir = joinpath(dirname(@__FILE__),"..","..")
+const root_dir = joinpath(dirname(@__FILE__),"..")
 
 # determination des chemins qui vont aux dossiers
 train_dir = joinpath(root_dir,joinpath("data"))
@@ -35,16 +34,16 @@ val_images, val_labels = load_dataset(dataset="validation")
 train_labels_str = String.(train_labels)
 val_labels_str = String.(val_labels)
 #Conversion au format MLJ
-
 train_labels = coerce(train_labels_str, Multiclass)
 val_labels = coerce(val_labels, Multiclass)
+
 
 #Vérification des types scientifiques
 @assert scitype(train_images) <: AbstractVector{<:Image}
 @assert scitype(train_labels) <: AbstractVector{<:Finite}
 
 #Visualiser une image
-train_images[2520]
+#train_images[2520]
 
 # --- Définition du constructeur ---
 struct MyConvBuilder
@@ -57,7 +56,7 @@ end
 function MLJFlux.build(b::MyConvBuilder, rng, image_size, n_out, n_channels)
     # image_size = (height, width)
     k, c1, c2, c3 = b.filter_size, b.channels1, b.channels2, b.channels3
-    mod(k, 2) == 1 || error("`filter_size` must be odd.")
+    mod(k, 2) == 1 || error("filter_size must be odd.")
     p = div(k - 1, 2)  # padding pour garder même taille après conv
     init = Flux.glorot_uniform(rng)
 
@@ -111,7 +110,7 @@ mach = machine(clf, images_subset, labels_subset)
 #si on veut utiliser tout le dataset
 # mach = machine(clf, train_images, train_labels)
 
-#entrainement pour 10 épochs
+#entrainement pour 1 époch
 fit!(mach, verbosity=2)
 
 report(mach)
@@ -123,3 +122,15 @@ y_pred = mode.(ŷ)
 # Évaluation
 println("Accuracy = ", accuracy(y_pred, val_labels))
 cm = confusion_matrix(val_labels, y_pred)
+
+
+MLJ.save("cheetah_cnn.jls", mach)
+
+#Code permettant de relancer le modèle sauvegardé sans avoir à le ré-entraîner
+mach_loaded = machine("cheetah_cnn.jls")
+y_chap=predict(mach_loaded, val_images)
+y_pred2=mode.(y_chap)
+
+# Évaluation du modèle sauvegardé (qui sont censée être les mêmes qu'avant)
+println("Accuracy = ", accuracy(y_pred2, val_labels))
+cm = confusion_matrix(val_labels, y_pred2)

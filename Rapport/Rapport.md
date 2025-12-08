@@ -63,7 +63,6 @@ Grâce aux export dans la package, toutes les fonctions et types listés sont ac
 
 ## Introduction à la classification d'images : (Matteo)
 
-
 ## La classification Lux
 
 Nous avons travaillé sur la classification d’images avec Lux. Le but était d’entraîner un réseau de neurones convolutionnel qui peut reconnaitre automatiquement les 4 animaux : cheetah, tiger, jaguar et hyena. L’objectif était de comprendre comment on construit un modèle Lux: chargement des images, préparation des données, création du modèle, entraînement, évaluation et prédiction.
@@ -187,6 +186,7 @@ tiger            6        1        1       92
 ```
 
 ## classification MLJFlux (Matteo)
+
 ```julia
 
 ```
@@ -196,7 +196,6 @@ tiger            6        1        1       92
 ```
 
 ## Conclusion à la classification d'images : (Matteo)
-
 
 ## Metaprogrammation
 
