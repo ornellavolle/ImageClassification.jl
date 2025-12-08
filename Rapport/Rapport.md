@@ -130,14 +130,12 @@ Il contient  les fonctions utiles pour charger le modèle déjà entraîné et p
 
 ```julia
 function load_lux_model()
-
 ```
 
 pour charger le modèle sauvegardé
 
 ```julia
 function preprocess_lux_image()
-
 ```
 
 pour mettre une nouvelle image dans le même format que pendant l’entraînement
@@ -150,7 +148,6 @@ renvoie le nom de l’animal
 
 ```julia
 function predict_lux_probabilities()
-
 ```
 
 renvoie les probabilités pour chaque classe
@@ -471,7 +468,7 @@ L’affichage des images est également géré par le serveur, qui détecte auto
 
 ## Multiple Dispaching : animals
 
-Dans cette partie du projet Julia, nous avons travaillé sur la création d’une hiérarchie d’animaux modélisés à l’aide de types abstraits, types concrets, et surtout du multiple dispatch, un des concepts centraux du langage Julia. Notre objectif était de définir un type abstrait commun représentant une famille d’animaux. 4Egalement de construire plusieurs types concrets héritant de ce type abstrait et de pouvoir personnaliser leur affichage en redéfinissant Base.show. Nous voulions égelement montrer l’intérêt du multiple dispatching à travers la gestion d’une liste d’animaux différents.
+Dans cette partie du projet Julia, nous avons travaillé sur la création d’une hiérarchie d’animaux modélisés à l’aide de types abstraits, types concrets, et surtout du multiple dispatch, un des concepts centraux du langage Julia. Notre objectif était de définir un type abstrait commun représentant une famille d’animaux. Egalement de construire plusieurs types concrets héritant de ce type abstrait et de pouvoir personnaliser leur affichage en redéfinissant Base.show. Nous voulions égelement montrer l’intérêt du multiple dispatching à travers la gestion d’une liste d’animaux différents.
 
 Ce travail a constitué la base avant d’aborder ensuite la métaprogrammation permettant de générer automatiquement des structures.
 
@@ -921,7 +918,7 @@ Avec load*image et load*dataset, nous avons mis en place un système flexible po
 
 ## Tests
 
-Nous avons choisis de compléter notre projet d'un ensemble de tests unitaires pour vérifier le bon fonctionnement des différentes fonctionnalités de notre package.  Les tests sont organisés en cinq parties principales, chacune correspondant à un aspect spécifique. Par exemple, nous testons la création et description d'animaux :
+Nous avons choisis de compléter notre projet d'un ensemble de tests unitaires pour vérifier le bon fonctionnement des différentes fonctionnalités de notre package. Les tests sont organisés en cinq parties principales, chacune correspondant à un aspect spécifique. Par exemple, nous testons la création et description d'animaux :
 
 ```julia
 using Test
