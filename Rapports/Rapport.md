@@ -6,7 +6,7 @@
 
 **Année 2025–2026**
 
-## Introduction (ornella)
+## Introduction
 
 Dans le cadre de notre projet julia nous avons déterminé comme objectif de base la classification d’images. Nous voulions créer notre propre méthode de classification en utilisant les réseaux de neurones (CNN) mais par manque de temps nous avons décidé de faire plusieurs exercices, par exemple de la métaprogramation, du multipledispaching, et de la classification (package Flux et par lux) dont le centre était une classification des animaux (cheetah, tigre, hyene et jaguar). Pour avoir une représentation graphique de ce que nous faisions, nous avons décidé de créer une application interactive sous R (Rshiny) et sous Julia (Bonito).  
 
@@ -189,7 +189,7 @@ tiger            6        1        1       92
 
 ```
 
-## Metaprogrammation (Jana)
+## Metaprogrammation
 
 Dans cette partie du projet, nous avons travaillé sur la métaprogrammation en Julia. Notre objectif était de créer automatiquement différents types d’animaux, de générer des fonctions de manière automatique, et d’utiliser le multiple dispatch pour définir des comportements propres à chaque espèce. L’idée était également de rendre notre code flexible et réutilisable, sans avoir à écrire manuellement une cinquantaine de structures ou de fonctions.
 
@@ -912,13 +912,50 @@ Avec load_image et load_dataset, nous avons mis en place un système flexible po
 
 ```
 
-## Tests (Anna)
+## Tests 
+
+Nous avons choisis de compléter notre projet d'un ensemble de tests unitaires pour vérifier le bon fonctionnement des différentes fonctionnalités de notre package. 
+Les tests sont organisés en cinq parties principales, chacune correspondant à un aspect spécifique.
+Par exemple, nous testons la création et description d'animaux :
 
 ```julia
+using Test
+using ImageClassification
 
+@testset "Tests création et description d'animaux" begin
+    animal = make_random_animal("Cheetah")
+    @test animal isa Cheetah
+    @test hasfield(Cheetah, :name)
+    @test hasfield(Cheetah, :speed)
+    @test typeof(animal.name) == String
+
+    cheetah = Cheetah("Flash", 60, 110)
+    ex = macroexpand(ImageClassification, :(@describe(cheetah)))
+    @test isa(ex, Expr)
+end
 ```
+Nous avons en tout réalisés ainsi 5 test unitaires de fonctionnalités de notre package.
+Ils son ttous stockés dans le dossier 'unit' dans la section 'test'.
 
+Finalement, le fichier 'runtests.jl" centralise tous les tests unitaires et les exécute dans un seul ensemble :
 ```julia
+using Test
+using ImageClassification
 
+@testset "ImageClassification.jl" begin
+    include("unit/load.jl")
+    include("unit/interactions.jl")
+    include("unit/operateurs.jl")
+    include("unit/random_sample.jl")
+    include("unit/animals.jl")
+end
 ```
+
+L'exécution de cette partie de code renvoie le retour de chaque test ainsi qu'un tableau de scores indiquant combien de tests sont passés, ont échoué ou ont provoqué une erreur.
+
+Cela permet de s'assurer que l'ensemble des fonctionnalités sont testées et que chacune reste correcte après modification.
+
+
+
+
 
