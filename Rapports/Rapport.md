@@ -49,9 +49,9 @@ include("classificationLux/classification_lux.jl")
 end
 ```
 
-- module ImageClassification ... end définit l’espace de noms.
-- export ... liste toutes les fonctions et types que nous souhaitons rendre accessibles aux utilisateurs du package.
-- include("chemin/vers/fichier.jl") permet d’intégrer des scripts externes à l’intérieur du module.
+  * module ImageClassification ... end définit l’espace de noms.
+  * export ... liste toutes les fonctions et types que nous souhaitons rendre accessibles aux utilisateurs du package.
+  * include("chemin/vers/fichier.jl") permet d’intégrer des scripts externes à l’intérieur du module.
 
 Une fois le package défini, nous pouvons l’utiliser dans n’importe quel script Julia à l'aide de la commande suivante à inclure au début du script :
 
@@ -61,7 +61,10 @@ using ImageClassification
 
 Grâce aux export dans la package, toutes les fonctions et types listés sont accessibles directement juste en les appelants.
 
-## La classification Lux 
+## Introduction à la classification d'images : (Matteo)
+
+
+## La classification Lux
 
 Nous avons travaillé sur la classification d’images avec Lux. Le but était d’entraîner un réseau de neurones convolutionnel qui peut reconnaitre automatiquement les 4 animaux : cheetah, tiger, jaguar et hyena. L’objectif était de comprendre comment on construit un modèle Lux: chargement des images, préparation des données, création du modèle, entraînement, évaluation et prédiction.
 
@@ -183,11 +186,17 @@ jaguar          12        1       85        2
 tiger            6        1        1       92
 ```
 
-## Load (Anna)
+## classification MLJFlux (Matteo)
+```julia
+
+```
 
 ```julia
 
 ```
+
+## Conclusion à la classification d'images : (Matteo)
+
 
 ## Metaprogrammation
 
@@ -400,7 +409,7 @@ ce code crée automatiquement 4 fonctions  sans que je les écrive une par une. 
 
 ## Bonito (Ornella)
 
-## R (Ornella)
+## Rshiny
 
 Pour la partie Rshiny nous avons décidé de créer une application interactive qui nous permet de visualiser, organiser et  de classer les images de notre base de données dans différentes catégories (par exemple, “Tigre”, “Hyène”, “Cheetah”, et on peut créer de nouvelles catégories si besoin). Je me suis d’abord formé au Rshiny avant de commencer à travailler la dessus. Ce qui m’a pris du temps pour pouvoir comprendre les grandes lignes.  Pour la suite, à chaque fois que j’avais besoin de créer quelque chose de spécifique nous allions chercher dans la bibliothèque des packages de Rshiny.  Puis on a fait une leçon sur posit (la bibio) https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/ Ce qui nous a bien plus aidée que de regarder des tutos sur youtube. 
 
@@ -699,7 +708,6 @@ Test de l'opérateur entre un guépard et une hyène :
 animals[1] ⊔ animals[6]
 ```
 
-
 ## Random sample
 
 Dans cette partie, nous avons développé un système pour charger et échantillonner des images d’animaux à partir d’un répertoire local. L’objectif était de rendre l’accès aux images flexible, afin de faciliter leur utilisation dans des expériences ou des modèles de classification.
@@ -825,11 +833,9 @@ Grâce à AnimalSampler et aux méthodes d’échantillonnage, nous avons pu :
 
 Cette approche démontre comment Julia permet de combiner types personnalisés, fonctions redéfinies et manipulation de fichiers de manière claire et efficace.
 
-
 ## Loading
 
-Dans cette section, nous avons développé des fonctions permettant de charger des images depuis un répertoire et de les préparer pour des tâches de classification ou d’apprentissage automatique.
-L’objectif était de standardiser la taille des images et de gérer correctement les couleurs.
+Dans cette section, nous avons développé des fonctions permettant de charger des images depuis un répertoire et de les préparer pour des tâches de classification ou d’apprentissage automatique. L’objectif était de standardiser la taille des images et de gérer correctement les couleurs.
 
 Pour simplifier l’accès aux images, nous avons défini un chemin racine :
 
@@ -851,9 +857,9 @@ function load_image(path; dataset::AbstractString = "train", size=(200,200))
 end
 ```
 
-- FileIO.load : charge l’image depuis le fichier.
-- colorview(RGB, img) : convertit l’image en RGB si ce n’est pas déjà le cas.
-- imresize : redimensionne l’image pour obtenir une taille uniforme.
+  * FileIO.load : charge l’image depuis le fichier.
+  * colorview(RGB, img) : convertit l’image en RGB si ce n’est pas déjà le cas.
+  * imresize : redimensionne l’image pour obtenir une taille uniforme.
 
 Cela nous garantit que toutes les images auront la même dimension et le même format de couleur, ce qui est essentiel pour l’analyse et l’entraînement de modèles.
 
@@ -896,7 +902,7 @@ val_imgs, val_labels = load_dataset(dataset = "validation")
 
 Chaque appel produit des images redimensionnées et prêtes à l’emploi, et nous permet de vérifier facilement le format et la qualité des données.
 
-Avec load_image et load_dataset, nous avons mis en place un système flexible pour charger des images depuis différents répertoires, une uniformisation de la taille et du format des images et,une organisation claire des labels, nécessaire pour l’apprentissage supervisé.
+Avec load*image et load*dataset, nous avons mis en place un système flexible pour charger des images depuis différents répertoires, une uniformisation de la taille et du format des images et,une organisation claire des labels, nécessaire pour l’apprentissage supervisé.
 
 ## type creation (Matteo)
 
@@ -912,11 +918,9 @@ Avec load_image et load_dataset, nous avons mis en place un système flexible po
 
 ```
 
-## Tests 
+## Tests
 
-Nous avons choisis de compléter notre projet d'un ensemble de tests unitaires pour vérifier le bon fonctionnement des différentes fonctionnalités de notre package. 
-Les tests sont organisés en cinq parties principales, chacune correspondant à un aspect spécifique.
-Par exemple, nous testons la création et description d'animaux :
+Nous avons choisis de compléter notre projet d'un ensemble de tests unitaires pour vérifier le bon fonctionnement des différentes fonctionnalités de notre package.  Les tests sont organisés en cinq parties principales, chacune correspondant à un aspect spécifique. Par exemple, nous testons la création et description d'animaux :
 
 ```julia
 using Test
@@ -934,10 +938,11 @@ using ImageClassification
     @test isa(ex, Expr)
 end
 ```
-Nous avons en tout réalisés ainsi 5 test unitaires de fonctionnalités de notre package.
-Ils son ttous stockés dans le dossier 'unit' dans la section 'test'.
+
+Nous avons en tout réalisés ainsi 5 test unitaires de fonctionnalités de notre package. Ils son ttous stockés dans le dossier 'unit' dans la section 'test'.
 
 Finalement, le fichier 'runtests.jl" centralise tous les tests unitaires et les exécute dans un seul ensemble :
+
 ```julia
 using Test
 using ImageClassification
@@ -954,8 +959,4 @@ end
 L'exécution de cette partie de code renvoie le retour de chaque test ainsi qu'un tableau de scores indiquant combien de tests sont passés, ont échoué ou ont provoqué une erreur.
 
 Cela permet de s'assurer que l'ensemble des fonctionnalités sont testées et que chacune reste correcte après modification.
-
-
-
-
 
