@@ -35,7 +35,15 @@ train_labels_str = String.(train_labels)
 val_labels_str = String.(val_labels)
 #Conversion au format MLJ
 train_labels = coerce(train_labels_str, Multiclass)
+=======
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+train_labels = coerce(train_labels, Multiclass)
+>>>>>>> Stashed changes
 val_labels = coerce(val_labels, Multiclass)
+
 
 
 #Vérification des types scientifiques
@@ -43,6 +51,7 @@ val_labels = coerce(val_labels, Multiclass)
 @assert scitype(train_labels) <: AbstractVector{<:Finite}
 
 #Visualiser une image
+#train_images[2520]
 #train_images[2520]
 
 # --- Définition du constructeur ---
