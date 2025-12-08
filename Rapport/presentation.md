@@ -13,9 +13,10 @@ format:
 
 commande pour lancer le diapo à exécuter dans le temrinal : quarto preview presentation.md
 
-
 Projet réalisé dans le cadre du master SSD (UGA).  
 Objectifs : Construire un package Julia + classification d'images
+
+![](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSG3e3LiiX9P-sSjg8uXJTzof3n5QpxvtmVsA&s){ width=100px }
 
 ---
 
