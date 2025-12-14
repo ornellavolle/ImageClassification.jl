@@ -14,14 +14,14 @@ using MLJ
 using CategoricalArrays
 using ScientificTypes
 
-#fixe la taille des figures (ici 600px de large) :
+# On fixe la taille des fig ures (ici 600px de large) :
 gr(size=(600, 300*(sqrt(5)-1))); 
 
 # Chemin vers ton dossier 'data' : 
 # constante du répertoire :
 const root_dir = joinpath(dirname(@__FILE__),"..")
 
-# determination des chemins qui vont aux dossiers
+# Determination des chemins qui vont aux dossiers
 train_dir = joinpath(root_dir,joinpath("data"))
 
 # Chargement des datasets
@@ -33,24 +33,25 @@ val_images, val_labels = load_dataset(dataset="validation")
 
 train_labels_str = String.(train_labels)
 val_labels_str = String.(val_labels)
-#Conversion au format MLJ
+
+# Conversion au format MLJ
 train_labels = coerce(train_labels_str, Multiclass)
 val_labels = coerce(val_labels, Multiclass)
 
 
 
-#Vérification des types scientifiques
+# Vérification des types scientifiques
 @assert scitype(train_images) <: AbstractVector{<:Image}
 @assert scitype(train_labels) <: AbstractVector{<:Finite}
 
-#Visualiser une image
+# Visualiser une image
 #train_images[2520]
 #train_images[2520]
 
 # --- Définition du constructeur ---
 struct MyConvBuilder
-    filter_size::Int      # taille des filtres de convolution (ex: 3)
-    channels1::Int        # nombre de canaux dans le 1er bloc conv
+    filter_size::Int # taille des filtres de convolution (ex: 3)
+    channels1::Int # nombre de canaux dans le 1er bloc conv
     channels2::Int
     channels3::Int
 end
@@ -87,16 +88,16 @@ ImageClassifier = @load ImageClassifier pkg=MLJFlux
 
 # Paramètres de ton modèle
 clf = ImageClassifier(
-    builder = MyConvBuilder(3, 16, 32, 64),  # filtres (3x3) et nombre de canaux
-    batch_size = 32,                         # taille des lots d'entraînement
-    epochs = 1,                             # nombre d’époques
-    rng = Random.default_rng(),              # graine aléatoire
+    builder = MyConvBuilder(3, 16, 32, 64), # filtres (3x3) et nombre de canaux
+    batch_size = 32, # taille des lots d'entraînement
+    epochs = 1, # nombre d’époques
+    rng = Random.default_rng(), # graine aléatoire
 )
 
-#Liaison (binding) du modèle
+# Liaison (binding) du modèle
 mach = machine(clf, train_images, train_labels);
 
-#création d'un subset aléatoire de 500 images du jeu de donnée cheetah...
+# Création d'un subset aléatoire de 500 images du jeu de donnée cheetah...
 
 subset_size = 500
 idx = randperm(length(train_images))[1:subset_size]
@@ -104,15 +105,15 @@ idx = randperm(length(train_images))[1:subset_size]
 images_subset = train_images[idx]
 labels_subset = train_labels[idx]
 
-#Liaison (binding) du modèle
+# Liaison (binding) du modèle
 
-#Si on veut utiliser juste un subset du dataset
+# Si on veut utiliser juste un subset du dataset
 mach = machine(clf, images_subset, labels_subset)
 
-#si on veut utiliser tout le dataset
+# Si on veut utiliser tout le dataset
 # mach = machine(clf, train_images, train_labels)
 
-#entrainement pour 1 époch
+# Entrainement pour 1 époch
 fit!(mach, verbosity=2)
 
 report(mach)
@@ -128,7 +129,7 @@ cm = confusion_matrix(val_labels, y_pred)
 
 MLJ.save("cheetah_cnn.jls", mach)
 
-#Code permettant de relancer le modèle sauvegardé sans avoir à le ré-entraîner
+# Code permettant de relancer le modèle sauvegardé sans avoir à le ré-entraîner
 mach_loaded = machine("cheetah_cnn.jls")
 y_chap=predict(mach_loaded, val_images)
 y_pred2=mode.(y_chap)

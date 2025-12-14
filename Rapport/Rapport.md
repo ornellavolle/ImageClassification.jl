@@ -131,14 +131,12 @@ Il contient  les fonctions utiles pour charger le modèle déjà entraîné et p
 
 ```julia
 function load_lux_model()
-
 ```
 
 pour charger le modèle sauvegardé
 
 ```julia
 function preprocess_lux_image()
-
 ```
 
 pour mettre une nouvelle image dans le même format que pendant l’entraînement
@@ -151,7 +149,6 @@ renvoie le nom de l’animal
 
 ```julia
 function predict_lux_probabilities()
-
 ```
 
 renvoie les probabilités pour chaque classe
@@ -438,6 +435,11 @@ retourne l’animal généré.
 ce code crée automatiquement 4 fonctions  sans que je les écrive une par une. Si j’ajoute un animal dans le dictionnaire, sa va cree une fonction process_nouvelanimal
 
 ## Bonito (Ornella)
+Vous pouvez retrouver le projet en allant dans rapport puis Mackie. Pour pouvoir travailler sur Bonito nous avons dû mettre à jour les différents pkg. Ce qui nous prend du temps. Ensuite, nous avons étudié plusieurs exemples de notebooks interactifs disponibles pour Bonito pour comprendre le fonctionnement de l’interface. L’objectif principal de cette partie était de créer une application capable de visualiser et de classer des images, la même chose que le RShiny, mais en langage Julia.
+Notre application sur bonito suit le même principe que celle sur R , c'est-à-dire que l’application permet à l’utilisateur de charger un dossier d’images et d’afficher ces images de manière interactive. Cependant nous n’avons pas réussi à mettre plus de fonctionnalité, car nous trouvons cela trop compliqué et complexe. À chaque fois que je rajoutais une autre fonction ou une autre fonctionnalité alors l’interface graphique avez des soucis pour l’affichage. 
+Donc nous allons vous expliquer ce que nous avons fait dans le bonito. Pour la navigation entre les images, on a créé des boutons intégrés dans le notebook. Pour gérer cette organisation, on a utilisé le package Mackie, qui a des fonctionnalités pour créer des interfaces interactives et gérer la réactivité des éléments. Bonito nous a aussi permis d’afficher des notifications ou des messages de confirmation lorsque des images sont ajoutées à un dossier ou lorsqu’un dossier est créé. Ce qui est très bien utile car cela nous permet d’avoir un retour sur les actions, on voit si ça fonctionne ou non . Quand on clique sur un des deux boutons alors dans notre terminal on va recevoir un message qui nous dit qu’on est passé à l’index suivant. Ce qui nous confirme qu’il n’y a pas eu d’erreur, il fait exactement la même chose que le précédent. Nous avons également ajouté un slider qui me permet de changer de photo en fonction du curseur. Nous avons fait cela pour jouer un peu avec l’interface. 
+Cette partie du projet nous a permis de comprendre les différences entre les environnements R et Julia pour la création d’applications interactives. Contrairement à RShiny, Bonito nécessite une approche plus orientée notebook, ce qui implique de structurer les cellules et le code de manière séquentielle tout en maintenant l’interactivité. Cette approche ouvre également la possibilité d’intégrer des modèles de classification automatiques via Flux ou d’autres packages Julia à l’avenir, ce qui permettra de compléter l’interaction manuelle avec des prédictions automatiques des catégories d’images. Mais une chose à redire que nous aurions du faire c’est de mettre notre package/fonction pour la classification. 
+
 
 ## Rshiny
 
@@ -500,7 +502,7 @@ L’affichage des images est également géré par le serveur, qui détecte auto
 
 ## Multiple Dispaching : animals
 
-Dans cette partie du projet Julia, nous avons travaillé sur la création d’une hiérarchie d’animaux modélisés à l’aide de types abstraits, types concrets, et surtout du multiple dispatch, un des concepts centraux du langage Julia. Notre objectif était de définir un type abstrait commun représentant une famille d’animaux. 4Egalement de construire plusieurs types concrets héritant de ce type abstrait et de pouvoir personnaliser leur affichage en redéfinissant Base.show. Nous voulions égelement montrer l’intérêt du multiple dispatching à travers la gestion d’une liste d’animaux différents.
+Dans cette partie du projet Julia, nous avons travaillé sur la création d’une hiérarchie d’animaux modélisés à l’aide de types abstraits, types concrets, et surtout du multiple dispatch, un des concepts centraux du langage Julia. Notre objectif était de définir un type abstrait commun représentant une famille d’animaux. Egalement de construire plusieurs types concrets héritant de ce type abstrait et de pouvoir personnaliser leur affichage en redéfinissant Base.show. Nous voulions égelement montrer l’intérêt du multiple dispatching à travers la gestion d’une liste d’animaux différents.
 
 Ce travail a constitué la base avant d’aborder ensuite la métaprogrammation permettant de générer automatiquement des structures.
 
@@ -940,7 +942,7 @@ Pour bien comprendre ce qu’est un type, un sous-type et un struct dans julia, 
 
 ## Tests
 
-Nous avons choisis de compléter notre projet d'un ensemble de tests unitaires pour vérifier le bon fonctionnement des différentes fonctionnalités de notre package.  Les tests sont organisés en cinq parties principales, chacune correspondant à un aspect spécifique. Par exemple, nous testons la création et description d'animaux :
+Nous avons choisis de compléter notre projet d'un ensemble de tests unitaires pour vérifier le bon fonctionnement des différentes fonctionnalités de notre package. Les tests sont organisés en cinq parties principales, chacune correspondant à un aspect spécifique. Par exemple, nous testons la création et description d'animaux :
 
 ```julia
 using Test

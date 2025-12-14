@@ -14,10 +14,6 @@ export process_cheetah, process_hyena, process_jaguar, process_tiger
 export MyConvBuilder, MLJFluxexport
 export load_lux_model, preprocess_lux_image, predict_lux_class, predict_lux_probabilities
 
-# Création d'une fonction qui détermine la forme du réseau de neurone, fonction qui provient du package MLJFlux : 
-
-include("recipe_4_neural_network/recipe_4_neural_network.jl")
-
 # Créer des nouveaux types : 
 
 include("type_creation/type_creation.jl")
