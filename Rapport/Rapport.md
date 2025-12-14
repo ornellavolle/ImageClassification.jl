@@ -10,13 +10,6 @@
 
 Dans le cadre de notre projet julia nous avons déterminé comme objectif de base la classification d’images. Nous voulions créer notre propre méthode de classification en utilisant les réseaux de neurones (CNN) mais par manque de temps nous avons décidé de faire plusieurs exercices, par exemple de la métaprogramation, du multipledispaching, et de la classification (package Flux et par lux) dont le centre était une classification des animaux (cheetah, tigre, hyene et jaguar). Pour avoir une représentation graphique de ce que nous faisions, nous avons décidé de créer une application interactive sous R (Rshiny) et sous Julia (Bonito).  
 
-## Le dataset : (Matteo)
-
-```julia
-test test testu!h!u
-test3
-
-```
 
 ## Le package :
 
@@ -63,7 +56,15 @@ using ImageClassification
 
 Grâce aux export dans la package, toutes les fonctions et types listés sont accessibles directement juste en les appelants.
 
-## Introduction à la classification d'images : (Matteo)
+
+## Le dataset : 
+
+Pour faire la classification d’images, nous avons récupéré sur Kaggle un jeu de données contenant 4000 images de 4 espèces animales différentes: des images de jaguars, des images de guépards, des images de hyènes et des images de tigres. Dans ce jeu de données, nous avons 2 dossiers: un dossier train et un dossier validation. Le dossier train contient un total de 3600 images réparties dans 4 sous-dossiers “espèce” de 900 photos (un sous-dossier “espèce” possède les photos pour une espèce). Le dossier validation est organisé de la même manière mais contient un total de 400 images et chaque sous-dossier “espèce” contient 100 images.
+
+
+## Classification d'images :
+
+Dans le cadre du projet Julia, nous nous sommes intéressés à la classification d’images. Pour se faire, nous avons utilisé 2 packages Julia faisant de la classification d’image les packages Lux et Flux. Le but d’utiliser 2 packages différent étant de pouvoir bien comprendre comment se déroule une classification d’images à l’aide d’un réseau de neurone et pouvoir comparer leurs fonctionnements.
 
 ## La classification Lux
 
@@ -189,13 +190,41 @@ tiger            6        1        1       92
 
 ## classification MLJFlux (Matteo)
 
-```julia
+Comme pour la classification Lux, nous avons utilisé la base de données contenant des images de 4 espèces d’animaux différents: des jaguars, des tigres, des guépards et des hyènes. 
 
-```
+### Importation des données
 
-```julia
+La première étape pour pouvoir entraîner un réseau de neurones était d’importer les données. Nous avons ainsi créé la fonction load_dataset() qui permet d’importer un jeu de données d’images en redimensionnant les images à la taille souhaitée. (voir avec Jana si on à mis la même chose)
 
-```
+### Transformation des données en scientific type
+
+Une fois les images importées, il faut transformer les labels pour qu’ils aient le Multiclass scientific type qui est un type créé spécialement pour le MLJ et qui indique que l’on va devoir prédire une classe parmi 4 différentes.
+
+### Construction du builder MyConvBuilder et utilisation de la fonction MLJFlux.build
+
+Ensuite, on crée un builder qui permettra de pouvoir travailler sur n’importe quel type d’images parce qu’on peut définir la taille des filtres de convolution et le nombre de canaux qui permettent de définir si l’image est en couleur ou pas.
+
+Puis grâce à la fonction MLJFlux.build qui est une fonction du package MLJFlux, on voit qu’on définit quelles couches et le nombres de couches qui vont être utilisées (ici une alternance de couche de convolution et de couche de maxpooling). 
+
+Ainsi grâce au builder et à cette fonction, l’utilisateur n’a pas besoin de préciser la dimension des images, ni le nombre de classes ni si les images sont en noir et blanc ou en couleur.
+
+
+### Définition du modèle
+
+Grâce au modèle MLJFlux prédéfini on peut définir plusieurs hyper-pramètres du modèle: la taille des filtres de convolution, la taille des canaux, la taille des batch(=lot de photos qui vont être traitées en même temps dans une itération), le nombre d’epochs (=nombre de fois où l’ensemble des données vont être traitées) et la reproductibilité de l’aléatoire du réseau.
+
+### Liaison du modèle, subset et entraînement
+
+Nous avons ensuite lié le modèle avec les données dans une machine MLJ qui va créer un objet contenant les données et le modèle et cet objet sera prêt à être entraîné.
+
+### Sauvegarde du modèle
+
+Comme l’entraînement prend du temps, nous sauvegardons le modèle que nous pourrons réutiliser sans avoir à refaire l’entraînement en le chargeant directement.
+
+### Prédiction et évaluation du modèle
+
+Nous avons finalement prédit des données dans le but de voir comment le modèle fonctionne. Pour ce faire nous avons calculé l’accuracy (Accuracy = 0.595) modèle à savoir combien de fois il avait prédit la bonne valeur sur le nombre total de prédictions. Et finalement pour voir plus précisément là où le modèle s’est plus ou moins trompé en fonction des catégories, nous avons généré une matrice de confusion.
+
 
 ## Conclusion à la classification d'images : (Matteo)
 
@@ -907,17 +936,7 @@ Avec load*image et load*dataset, nous avons mis en place un système flexible po
 
 ## type creation (Matteo)
 
-```julia
-
-```
-
-```julia
-
-```
-
-```julia
-
-```
+Pour bien comprendre ce qu’est un type, un sous-type et un struct dans julia, nous avons décidé de créer des types, des sous-types et des struct. Nous avons donc commencé par créer un type abstrait: Animal et deux sous-types abstraits: Carnivore et Herbivore et finalement nous avons créé un struct pour les Carnivore: Loup et un struct pour les Herbivore: Cerf. Nous avons ensuite ajouté à ces struct des attributs. Nous avons ensuite créé une fonction: “crier” qui en fonction du type abstrait qu’elle recevrait n’aurait pas la même réponse. La fonction renvoie bramer si le type d’entrée est cerf et hurler si le type d’entrée est loup. Ce qui permet de mieux comprendre comment fonctionne le multiple dispatching et comment il est possible avec une même fonction de réaliser différents type d’actions en fonction du type d’entrées. 
 
 ## Tests
 
