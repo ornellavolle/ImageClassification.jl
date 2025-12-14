@@ -4,7 +4,7 @@ subtitle: "Présentation"
 author: "Jana Al Jamal - Anna Cochat - Matteo Schweizer - Ornella Volle"
 format:
   revealjs:
-    theme: moon # on a choisis ce style et ces couleurs
+    theme: solarized # on a choisis ce style et ces couleurs
     slide-number: true
     transition: slide # glissage entre chaque slide
 ---
