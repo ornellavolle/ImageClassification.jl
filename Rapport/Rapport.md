@@ -191,7 +191,7 @@ Comme pour la classification Lux, nous avons utilisé la base de données conten
 
 ### Importation des données
 
-La première étape pour pouvoir entraîner un réseau de neurones était d’importer les données. Nous avons ainsi créé la fonction load_dataset() qui permet d’importer un jeu de données d’images en redimensionnant les images à la taille souhaitée. (voir avec Jana si on à mis la même chose)
+La première étape pour pouvoir entraîner un réseau de neurones était d’importer les données. Nous avons ainsi créé la fonction load_dataset() qui permet d’importer un jeu de données d’images en redimensionnant les images à la taille souhaitée.
 
 ### Transformation des données en scientific type
 
@@ -220,10 +220,11 @@ Comme l’entraînement prend du temps, nous sauvegardons le modèle que nous po
 
 ### Prédiction et évaluation du modèle
 
-Nous avons finalement prédit des données dans le but de voir comment le modèle fonctionne. Pour ce faire nous avons calculé l’accuracy (Accuracy = 0.595) modèle à savoir combien de fois il avait prédit la bonne valeur sur le nombre total de prédictions. Et finalement pour voir plus précisément là où le modèle s’est plus ou moins trompé en fonction des catégories, nous avons généré une matrice de confusion.
+Nous avons finalement prédit des données dans le but de voir comment le modèle fonctionne. Pour ce faire nous avons calculé l’accuracy du modèle (Accuracy = 0.595) à savoir combien de fois il avait prédit la bonne valeur sur le nombre total de prédictions. Et finalement pour voir plus précisément là où le modèle s’est plus ou moins trompé en fonction des catégories, nous avons généré une matrice de confusion.
 
 
-## Conclusion à la classification d'images : (Matteo)
+## Conclusion à la classification d'images :
+Globalement Flux et Lux permettent de faire de la classification d’image mais Flux permet de faire de la classification à plus haut niveau que Lux. En effet, lorsque nous utilisons Flux, une fois que nous avons mis nos données en type scientific, il existe beaucoup de fonctions qui automatisent la classification d’image et l’utilisateur peut ainsi se concentrer plus sur les hyper-paramètres et moins sur les fonctions permettant de faire la classification d’image en général. De plus, dans Flux, nous avons un builder qui nous permet de mettre en input n’importe quel type d’image (pas besoin de préciser si l’image est en couleur, la dimension des images et le nombre de labels). Lux est ainsi plus compliqué au premier abord mais permet d’avoir plus de contrôle sur la classification d’images. 
 
 ## Metaprogrammation
 
