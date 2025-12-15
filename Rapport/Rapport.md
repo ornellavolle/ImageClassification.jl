@@ -185,7 +185,7 @@ jaguar          12        1       85        2
 tiger            6        1        1       92
 ```
 
-## classification MLJFlux (Matteo)
+## classification MLJFlux
 
 Comme pour la classification Lux, nous avons utilisé la base de données contenant des images de 4 espèces d’animaux différents: des jaguars, des tigres, des guépards et des hyènes. 
 
@@ -220,11 +220,10 @@ Comme l’entraînement prend du temps, nous sauvegardons le modèle que nous po
 
 ### Prédiction et évaluation du modèle
 
-Nous avons finalement prédit des données dans le but de voir comment le modèle fonctionne. Pour ce faire nous avons calculé l’accuracy du modèle (Accuracy = 0.595) à savoir combien de fois il avait prédit la bonne valeur sur le nombre total de prédictions. Et finalement pour voir plus précisément là où le modèle s’est plus ou moins trompé en fonction des catégories, nous avons généré une matrice de confusion.
+Nous avons finalement prédit des données dans le but de voir comment le modèle fonctionne. Pour ce faire nous avons calculé l’accuracy (Accuracy = 0.595) modèle à savoir combien de fois il avait prédit la bonne valeur sur le nombre total de prédictions. Et finalement pour voir plus précisément là où le modèle s’est plus ou moins trompé en fonction des catégories, nous avons généré une matrice de confusion.
 
 
 ## Conclusion à la classification d'images :
-Globalement Flux et Lux permettent de faire de la classification d’image mais Flux permet de faire de la classification à plus haut niveau que Lux. En effet, lorsque nous utilisons Flux, une fois que nous avons mis nos données en type scientific, il existe beaucoup de fonctions qui automatisent la classification d’image et l’utilisateur peut ainsi se concentrer plus sur les hyper-paramètres et moins sur les fonctions permettant de faire la classification d’image en général. De plus, dans Flux, nous avons un builder qui nous permet de mettre en input n’importe quel type d’image (pas besoin de préciser si l’image est en couleur, la dimension des images et le nombre de labels). Lux est ainsi plus compliqué au premier abord mais permet d’avoir plus de contrôle sur la classification d’images. 
 
 ## Metaprogrammation
 
@@ -435,11 +434,18 @@ retourne l’animal généré.
 
 ce code crée automatiquement 4 fonctions  sans que je les écrive une par une. Si j’ajoute un animal dans le dictionnaire, sa va cree une fonction process_nouvelanimal
 
-## Bonito (Ornella)
-Vous pouvez retrouver le projet en allant dans rapport puis Mackie. Pour pouvoir travailler sur Bonito nous avons dû mettre à jour les différents pkg. Ce qui nous prend du temps. Ensuite, nous avons étudié plusieurs exemples de notebooks interactifs disponibles pour Bonito pour comprendre le fonctionnement de l’interface. L’objectif principal de cette partie était de créer une application capable de visualiser et de classer des images, la même chose que le RShiny, mais en langage Julia.
+## Bonito
+
+Vous pouvez retrouver le projet en allant dans rapport puis Mackie. 
+
+Pour pouvoir travailler sur Bonito nous avons dû mettre à jour les différents pkg. Ce qui nous prend du temps. Ensuite, nous avons étudié plusieurs exemples de notebooks interactifs disponibles pour Bonito pour comprendre le fonctionnement de l’interface. L’objectif principal de cette partie était de créer une application capable de visualiser et de classer des images, la même chose que le RShiny, mais en langage Julia.
+
 Notre application sur bonito suit le même principe que celle sur R , c'est-à-dire que l’application permet à l’utilisateur de charger un dossier d’images et d’afficher ces images de manière interactive. Cependant nous n’avons pas réussi à mettre plus de fonctionnalité, car nous trouvons cela trop compliqué et complexe. À chaque fois que je rajoutais une autre fonction ou une autre fonctionnalité alors l’interface graphique avez des soucis pour l’affichage. 
-Donc nous allons vous expliquer ce que nous avons fait dans le bonito. Pour la navigation entre les images, on a créé des boutons intégrés dans le notebook. Pour gérer cette organisation, on a utilisé le package Mackie, qui a des fonctionnalités pour créer des interfaces interactives et gérer la réactivité des éléments. Bonito nous a aussi permis d’afficher des notifications ou des messages de confirmation lorsque des images sont ajoutées à un dossier ou lorsqu’un dossier est créé. Ce qui est très bien utile car cela nous permet d’avoir un retour sur les actions, on voit si ça fonctionne ou non . Quand on clique sur un des deux boutons alors dans notre terminal on va recevoir un message qui nous dit qu’on est passé à l’index suivant. Ce qui nous confirme qu’il n’y a pas eu d’erreur, il fait exactement la même chose que le précédent. Nous avons également ajouté un slider qui me permet de changer de photo en fonction du curseur. Nous avons fait cela pour jouer un peu avec l’interface. 
-Cette partie du projet nous a permis de comprendre les différences entre les environnements R et Julia pour la création d’applications interactives. Contrairement à RShiny, Bonito nécessite une approche plus orientée notebook, ce qui implique de structurer les cellules et le code de manière séquentielle tout en maintenant l’interactivité. Cette approche ouvre également la possibilité d’intégrer des modèles de classification automatiques via Flux ou d’autres packages Julia à l’avenir, ce qui permettra de compléter l’interaction manuelle avec des prédictions automatiques des catégories d’images. Mais une chose à redire que nous aurions du faire c’est de mettre notre package/fonction pour la classification. 
+
+Donc nous allons vous expliquer ce que nous avons fait dans le bonito. Pour la navigation entre les images, on a créé des boutons intégrés dans le notebook. Pour gérer cette organisation, on a utilisé le package Mackie, qui a des fonctionnalités pour créer des interfaces interactives et gérer la réactivité des éléments. Bonito nous a aussi permis d’afficher des notifications ou des messages de confirmation lorsque des images sont ajoutées à un dossier ou lorsqu’un dossier est créé. Ce qui est très bien utile car cela nous permet d’avoir un retour sur les actions, on voit si ça fonctionne ou non. 
+Quand on clique sur un des deux boutons alors dans notre terminal on va recevoir un message qui nous dit qu’on est passé à l’index suivant. Ce qui nous confirme qu’il n’y a pas eu d’erreur, il fait exactement la même chose que le précédent. Nous avons également ajouté un slider qui me permet de changer de photo en fonction du curseur. Nous avons fait cela pour jouer un peu avec l’interface. 
+Cette partie du projet nous a permis de comprendre les différences entre les environnements R et Julia pour la création d’applications interactives. Contrairement à RShiny, Bonito nécessite une approche plus orientée notebook, ce qui implique de structurer les cellules et le code de manière séquentielle tout en maintenant l’interactivité. 
+Cette approche ouvre également la possibilité d’intégrer des modèles de classification automatiques via Flux ou d’autres packages Julia à l’avenir, ce qui permettra de compléter l’interaction manuelle avec des prédictions automatiques des catégories d’images. Mais une chose à redire que nous aurions du faire c’est de mettre notre package/fonction pour la classification. 
 
 
 ## Rshiny
@@ -937,7 +943,7 @@ Chaque appel produit des images redimensionnées et prêtes à l’emploi, et no
 
 Avec load*image et load*dataset, nous avons mis en place un système flexible pour charger des images depuis différents répertoires, une uniformisation de la taille et du format des images et,une organisation claire des labels, nécessaire pour l’apprentissage supervisé.
 
-## type creation (Matteo)
+## Type creation
 
 Pour bien comprendre ce qu’est un type, un sous-type et un struct dans julia, nous avons décidé de créer des types, des sous-types et des struct. Nous avons donc commencé par créer un type abstrait: Animal et deux sous-types abstraits: Carnivore et Herbivore et finalement nous avons créé un struct pour les Carnivore: Loup et un struct pour les Herbivore: Cerf. Nous avons ensuite ajouté à ces struct des attributs. Nous avons ensuite créé une fonction: “crier” qui en fonction du type abstrait qu’elle recevrait n’aurait pas la même réponse. La fonction renvoie bramer si le type d’entrée est cerf et hurler si le type d’entrée est loup. Ce qui permet de mieux comprendre comment fonctionne le multiple dispatching et comment il est possible avec une même fonction de réaliser différents type d’actions en fonction du type d’entrées. 
 
