@@ -225,8 +225,9 @@ Nous avons finalement prédit des données dans le but de voir comment le modèl
 
 ## Conclusion à la classification d'images :
 Globalement Flux et Lux permettent de faire de la classification d’image mais Flux permet de faire de la classification à plus haut niveau que Lux. En effet, lorsque nous utilisons Flux, une fois que nous avons mis nos données en type scientific, il existe beaucoup de fonctions qui automatisent la classification d’image et l’utilisateur peut ainsi se concentrer plus sur les hyper-paramètres et moins sur les fonctions permettant de faire la classification d’image en général. De plus, dans Flux, nous avons un builder qui nous permet de mettre en input n’importe quel type d’image (pas besoin de préciser si l’image est en couleur, la dimension des images et le nombre de labels). Lux est ainsi plus compliqué au premier abord mais permet d’avoir plus de contrôle sur la classification d’images.
- 
+
 ## Metaprogrammation
+fff
 
 Dans cette partie du projet, nous avons travaillé sur la métaprogrammation en Julia. Notre objectif était de créer automatiquement différents types d’animaux, de générer des fonctions de manière automatique, et d’utiliser le multiple dispatch pour définir des comportements propres à chaque espèce. L’idée était également de rendre notre code flexible et réutilisable, sans avoir à écrire manuellement une cinquantaine de structures ou de fonctions.
 
